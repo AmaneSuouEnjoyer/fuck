@@ -1,0 +1,70 @@
+.ElectionSelection {
+    width: 95%;
+    border: solid 2px white;
+    font-size: small;
+    margin:auto;
+}
+
+.ElectionSelectionBox {
+    padding: 16px;
+    margin: auto;
+}
+
+.ElectionInfoArea {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    margin-top: 10px;
+    border-style: double;
+    border-color: #c9c9c9;
+}
+
+@media only screen and (max-width: 600px) {
+
+    .ElectionSelection {
+        font-size: x-small;
+        max-width: auto!important;
+    }
+
+    .ElectionSelectionBox {
+        width: 80%!important;
+    }
+
+    .ElectionInfoArea {
+        flex-direction: column;
+    }
+
+    .ElectionDescription {
+        text-align: center!important;
+        width: 100%!important;
+        margin:auto;
+    }
+
+    .ElectionInfoArea > img {
+        max-width: 80%!important;
+    }    
+
+}
+
+.ElectionInfoArea > img {
+    margin:auto;
+    border-style: double;
+    max-height: 30vh;
+    max-width: 33%;
+}
+
+.ElectionDescription {
+    text-align: left;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 30vh;
+}
+
+.ElectionDescription > p {
+    margin-top:0px!important;
+}
+
+
+.LabelText {
+    font-weight: bolder;
+}

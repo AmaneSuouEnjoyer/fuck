@@ -1,0 +1,42 @@
+.DebugMenuAnswer {
+    background-color: rgba(0, 0, 0, 0.664);
+    width: 90%;
+    margin: auto;
+    color: rgb(255, 255, 255);
+    border-radius: 3px;
+}
+
+.DebugMenuAnswer > p {
+    font-weight: bold;
+}
+
+.DebugMenuAnswerEffect p {
+    margin: 0;
+}
+
+.DebugMenuDropdown > summary {
+    background-color: rgba(0, 0, 0, 0.664);
+    color: white;
+    padding-bottom: 8px;
+}
+
+.DebugMenuButtons {
+    background-color: rgba(0, 0, 0, 0.664);
+    color: white;
+    padding: 8px;
+}
+
+.DebugMenuButtons button {
+    background-color: green;
+    color: white;
+}
+
+.DebugMenu {
+    margin: 8px;
+}
+
+.DebugMenu, .DebugMenuButtons, .DebugMenuOption {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}

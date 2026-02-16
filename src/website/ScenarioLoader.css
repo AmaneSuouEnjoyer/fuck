@@ -1,0 +1,12 @@
+.CustomArea {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+}
+
+.ScenarioBoxHolder {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}

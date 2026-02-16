@@ -1,0 +1,72 @@
+.Game {
+    min-height: 100%;
+}
+
+.GameView {
+    width: 95%;
+    border: 2px white solid;
+}
+
+.GameWindow {
+    background-color: black;
+    border-style: double;
+    border-color: white;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    max-width: 66%;
+    padding-bottom: 2%;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .GameView {
+        width: 95%!important;
+    }
+    .GameWindow {
+        max-width: 100%;
+    }
+}
+
+button {
+    margin: 8px;
+}
+
+.TopBanner {
+    display: flex;
+    width: 100%;
+    border-bottom: rgba(255, 255, 255, 0.356) 1px solid;
+    padding-bottom: 8px;
+}
+
+.BottomButtons {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    place-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.ChooseState {
+    font-style: italic;
+}
+
+.Game button {
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.Game button:disabled {
+    opacity: 0.5;
+}
+
+.Game {
+    line-height: initial;
+}
+
+.QuestionOf {
+    padding: 0px;
+    margin:0px;
+}

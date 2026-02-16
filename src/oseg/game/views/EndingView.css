@@ -1,0 +1,61 @@
+.EndingView {
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.EndingSlides {
+    border-style: double;
+}
+
+.EndingSlide {
+    display: flex;
+    padding: 16px;
+    gap: 16px;
+}
+
+.EndingButtons {
+    display: flex;
+    margin: auto;
+    gap: 8px;
+    place-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .EndingSlide {
+        flex-direction: column;
+    }
+
+    .EndingSlideHeader {
+        margin-left: 5%;
+        margin-right: 5%;
+        font-size: large!important;
+    }
+
+    .EndingSlideDescription {
+        margin: auto;
+    }
+}
+
+.EndingSlideImage {
+    border-style: double;
+    margin:auto;
+    max-height: 30vh;
+}
+
+.EndingSlideDescription {
+    text-align: left;
+    height: 100%;
+    width: 80%;
+    overflow-y: auto;
+    max-height: 30vh;
+}
+
+.EndingSlideControlLine {
+    width: 90%;
+    height: 1px;
+    margin: 8px auto;
+    opacity: 0.25;
+    background-color: black;
+}

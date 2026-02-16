@@ -1,0 +1,196 @@
+.SplitEditorArea {
+    display: flex;
+    gap: 8px;
+}
+
+.ResizeHandle {
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.338);
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.Panel {
+    padding: 16px;
+    overflow-y: scroll!important;
+    max-height: 100vh;
+}
+
+.DownloadButtons {
+    margin: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    place-items: center;
+    justify-content: center;
+    
+}
+
+.MapSettings {
+    margin: 8px;
+}
+
+.MapSettings > label {
+    margin-right: 8px;
+}
+
+.JsonError {
+    border: #c93535 1px solid;
+    margin: 8px auto;
+    color: #c93535;
+    background-color: #f5dddd;;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+.GreenButton {
+    background-color: green!important;
+    color: white!important;
+    font-weight: bold;
+}
+
+.GreenButton:hover {
+    background-color: darkgreen!important;
+}
+
+.BlueButton {
+    background-color: rgb(47, 47, 255)!important;
+    color: white!important;
+    font-weight: bold;
+    border: solid 1px darkblue;
+}
+
+.BlueButton:hover {
+    background-color: darkblue!important;
+}
+
+.RedButton {
+    background-color: rgb(255, 47, 47)!important;
+    color: white!important;
+    font-weight: bold;
+    border: solid 1px darkred;
+}
+
+.RedButton:hover {
+    background-color: darkred!important;
+}
+
+.CircleButton {
+    border-radius: 100%!important;
+    width: 32px!important;
+    height: 32px!important;
+    display: flex!important;
+    place-items: center!important;
+    justify-content: center!important;
+    font-size: small!important;
+}
+
+.Toolbar {
+    display: flex;
+    margin: auto;
+    gap: 8px;
+    place-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 12px;
+}
+
+.Toolbar > button {
+   margin: 0px 0px;
+   border: 1px grey solid;
+}
+
+.Toolbar > button:hover {
+    background-color: gainsboro;
+}
+
+.LastSaved {
+    font-style: italic;
+    color: grey;
+    font-size: x-small;
+    margin: -5px 0px;
+    margin-bottom: 5px;
+}
+
+.GenericEditorComponent label {
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.EditorWarningBox {
+    background-color: rgba(255, 255, 0, 0.279);
+    border: rgba(184, 135, 11, 0.669) 1px solid;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    place-items: center;
+    text-align: center;
+    margin: 8px auto;
+    font-size: small;
+    word-wrap: anywhere;
+}
+
+.EditorStance {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.628);
+    padding: 8px;
+    margin: 8px;
+}
+
+.EditorToggleChecked {
+    background-color: green!important;
+    color: white!important;
+    opacity: 0.9;
+    transition: all 0.1s ease-in-out;
+}
+
+.EditorToggleChecked:hover {
+    opacity: 1.0;
+}
+
+.EditorToggleUnchecked {
+    
+}
+
+label {
+    font-weight: bold;
+}
+
+.SongEditor {
+    border: 1px solid rgba(0,0,0,0.24);
+    padding: 8px;
+    margin: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    place-items: center;
+    gap: 4px;
+    font-size: small!important;
+}
+
+.SongEditor > input {
+    width: auto!important;
+}
+
+.EditorNote {
+    font-size: small;
+    color: grey;
+    font-weight: italic;
+    margin: 8px;
+    padding: 0px;
+}
+
+.EditorForm {
+    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    text-align: left;
+    padding: 8px 0px;
+}
+
+.EditorForm h2, .EditorBox h2 {
+    margin: 0;
+    margin-bottom: 8px;
+}
