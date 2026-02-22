@@ -222,7 +222,7 @@
             "description": "Another successful opposition mayor with a reputation for competence, but he can alienate the Kurdish voters because of his MHP (Nationalist Movement Party) past.",
             "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqsWAqeX2tjeN8l8EqIAIuDHpTjibOU_34fg&s",
             "runningMateIds": [],
-            "startingGlobalMultiplier": 0.01
+            "startingGlobalMultiplier": 0
         },
         {
             "id": 33655,
@@ -379,6 +379,84 @@
             "imageUrl": "https://trthaberstatic.cdn.wp.trt.com.tr/resimler/2018000/zekeriya-yapicioglu-2018171.jpg",
             "runningMateIds": [],
             "startingGlobalMultiplier": 0
+        },
+        {
+            "id": 33662,
+            "firstName": "Mansur",
+            "lastName": "Yavaş",
+            "party": "Freedom Party",
+            "homeState": "Ankara",
+            "color": "#FF0000",
+            "issueScores": [
+                {
+                    "issueId": 21473,
+                    "issueScore": -0.71,
+                    "weight": 1
+                },
+                {
+                    "issueId": 21474,
+                    "issueScore": -0.38,
+                    "weight": 1
+                },
+                {
+                    "issueId": 21475,
+                    "issueScore": -0.65,
+                    "weight": 1
+                },
+                {
+                    "issueId": 21476,
+                    "issueScore": -0.28,
+                    "weight": 1
+                },
+                {
+                    "issueId": 21477,
+                    "issueScore": -0.09,
+                    "weight": 1
+                }
+            ],
+            "description": "Just a normal guy",
+            "imageUrl": "https://placecats.com/300/300",
+            "runningMateIds": [],
+            "startingGlobalMultiplier": 0
+        },
+        {
+            "id": 33663,
+            "firstName": "Selahattin",
+            "lastName": "Demirtaş",
+            "party": "Freedom Party",
+            "homeState": "South Dakota",
+            "color": "#b30dbf",
+            "issueScores": [
+                {
+                    "issueId": 21473,
+                    "issueScore": -0.78,
+                    "weight": 0
+                },
+                {
+                    "issueId": 21474,
+                    "issueScore": -0.23,
+                    "weight": 0
+                },
+                {
+                    "issueId": 21475,
+                    "issueScore": 0.3,
+                    "weight": 0
+                },
+                {
+                    "issueId": 21476,
+                    "issueScore": -0.72,
+                    "weight": 0
+                },
+                {
+                    "issueId": 21477,
+                    "issueScore": 1,
+                    "weight": 3
+                }
+            ],
+            "description": "Just a normal guy",
+            "imageUrl": "https://placecats.com/300/300",
+            "runningMateIds": [],
+            "startingGlobalMultiplier": 0
         }
     ],
     "states": [
@@ -450,6 +528,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -523,6 +609,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.51
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 2.75
                 }
             ]
         },
@@ -595,6 +689,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -650,7 +752,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -667,6 +769,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.56
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -739,6 +849,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -811,6 +929,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -883,6 +1009,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.34
                 }
             ]
         },
@@ -954,6 +1088,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -1027,6 +1169,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 1
                 }
             ]
         },
@@ -1098,6 +1248,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -1171,6 +1329,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.45
                 }
             ]
         },
@@ -1243,6 +1409,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.14
                 }
             ]
         },
@@ -1315,6 +1489,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -1370,7 +1552,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -1387,6 +1569,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.14
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -1459,6 +1649,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -1531,6 +1729,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -1603,6 +1809,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.56
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 3.65
                 }
             ]
         },
@@ -1658,7 +1872,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -1675,6 +1889,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.14
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -1747,6 +1969,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -1819,6 +2049,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.17
                 }
             ]
         },
@@ -1890,6 +2128,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -1963,6 +2209,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.14
                 }
             ]
         },
@@ -2035,6 +2289,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -2107,6 +2369,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -2179,6 +2449,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.17
                 }
             ]
         },
@@ -2234,7 +2512,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -2251,6 +2529,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.27
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -2323,6 +2609,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.17
                 }
             ]
         },
@@ -2395,6 +2689,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.14
                 }
             ]
         },
@@ -2466,6 +2768,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.56
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -2539,6 +2849,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -2611,6 +2929,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -2683,6 +3009,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.32
                 }
             ]
         },
@@ -2754,6 +3088,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -2827,6 +3169,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -2899,6 +3249,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -2954,7 +3312,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -2971,6 +3329,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.14
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -3042,6 +3408,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -3115,6 +3489,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.85
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -3187,6 +3569,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -3259,6 +3649,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.88
                 }
             ]
         },
@@ -3331,6 +3729,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.45
                 }
             ]
         },
@@ -3403,6 +3809,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.32
                 }
             ]
         },
@@ -3475,6 +3889,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -3547,6 +3969,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -3619,6 +4049,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.56
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 4.61
                 }
             ]
         },
@@ -3691,6 +4129,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -3763,6 +4209,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -3835,6 +4289,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.32
                 }
             ]
         },
@@ -3907,6 +4369,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -3979,6 +4449,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -4051,6 +4529,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -4122,6 +4608,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -4195,6 +4689,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -4267,6 +4769,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -4338,6 +4848,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -4411,6 +4929,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.14
                 }
             ]
         },
@@ -4466,7 +4992,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -4483,6 +5009,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.07
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -4555,6 +5089,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 1.78
                 }
             ]
         },
@@ -4627,6 +5169,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -4682,7 +5232,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -4699,6 +5249,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.14
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -4771,6 +5329,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -4843,6 +5409,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -4915,6 +5489,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -4987,6 +5569,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.32
                 }
             ]
         },
@@ -5059,6 +5649,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -5131,6 +5729,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.17
                 }
             ]
         },
@@ -5149,12 +5755,12 @@
                 {
                     "issueId": 21474,
                     "issueScore": -0.53,
-                    "weight": 2.01
+                    "weight": 0.97
                 },
                 {
                     "issueId": 21475,
                     "issueScore": -0.71,
-                    "weight": 2.11
+                    "weight": 1.07
                 },
                 {
                     "issueId": 21476,
@@ -5203,6 +5809,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -5275,6 +5889,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.51
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 2.75
                 }
             ]
         },
@@ -5330,7 +5952,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -5347,6 +5969,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.14
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -5419,6 +6049,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -5432,17 +6070,17 @@
                 {
                     "issueId": 21473,
                     "issueScore": 0.15,
-                    "weight": 2.24
+                    "weight": 1.03
                 },
                 {
                     "issueId": 21474,
                     "issueScore": -0.53,
-                    "weight": 1.24
+                    "weight": 1.03
                 },
                 {
                     "issueId": 21475,
                     "issueScore": -0.84,
-                    "weight": 2.81
+                    "weight": 1.01
                 },
                 {
                     "issueId": 21476,
@@ -5458,7 +6096,7 @@
             "baseCandidateStateModifiers": [
                 {
                     "candidateId": 33650,
-                    "amount": 1.01
+                    "amount": 1.8
                 },
                 {
                     "candidateId": 33651,
@@ -5491,6 +6129,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -5546,7 +6192,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -5563,6 +6209,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.07
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -5635,6 +6289,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -5707,6 +6369,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -5779,6 +6449,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.18
                 }
             ]
         },
@@ -5834,7 +6512,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -5851,6 +6529,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -5923,6 +6609,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.14
                 }
             ]
         },
@@ -5978,7 +6672,7 @@
                 },
                 {
                     "candidateId": 33654,
-                    "amount": 1
+                    "amount": 0.46
                 },
                 {
                     "candidateId": 33655,
@@ -5995,6 +6689,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 0.27
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 5
                 }
             ]
         },
@@ -6066,6 +6768,14 @@
                 },
                 {
                     "candidateId": 33661,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
                     "amount": 1
                 }
             ]
@@ -6139,6 +6849,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         },
@@ -6211,6 +6929,14 @@
                 {
                     "candidateId": 33661,
                     "amount": 1
+                },
+                {
+                    "candidateId": 33662,
+                    "amount": 1
+                },
+                {
+                    "candidateId": 33663,
+                    "amount": 0.28
                 }
             ]
         }
@@ -6373,7 +7099,7 @@
                                     "candidateId": 33650,
                                     "issueId": 21473,
                                     "stateId": 16097,
-                                    "amount": -0.1
+                                    "amount": -0.13
                                 },
                                 {
                                     "answerEffectType": "Issue",
@@ -6401,7 +7127,7 @@
                                     "candidateId": 33650,
                                     "issueId": 21473,
                                     "stateId": 16097,
-                                    "amount": -0.09
+                                    "amount": -0.12
                                 },
                                 {
                                     "answerEffectType": "Issue",
@@ -6429,7 +7155,7 @@
                                     "candidateId": 33650,
                                     "issueId": 21473,
                                     "stateId": 16097,
-                                    "amount": -0.07
+                                    "amount": -0.1
                                 },
                                 {
                                     "answerEffectType": "Issue",
@@ -7182,6 +7908,548 @@
                     "onlyEnableAtStartIfRunningMateId": -1
                 },
                 {
+                    "id": 497615,
+                    "description": "You have leaned heavily into your partnership with Zekeriya Yapıcıoğlu (HÜDA PAR) to secure the conservative Kurdish vote. However, this has backfired in the West and the Black Sea region. Mansur Yavaş, Mayor of Ankara known for his nationalist roots, has seized the moment. He is attacking you from the Right. He is calling your alliance with HÜDA PAR a \"betrayal of the Republic's founding values\" and is gaining massive momentum among the Turkish nationalists, and he is becoming closer and closer to becoming the main opposition candidate. Polls show Yavaş is more of a dangerous threat than Kılıçdaroğlu because he can actually \"steal\" your core base. You need to stop his rise immediately. Or, you can play into his weaknesses.",
+                    "answers": [
+                        {
+                            "id": 133,
+                            "description": "This person, Mansur Yavaş, is currently in a position where he is forging bonds. The judiciary has made a decision regarding the fake bonds. What will happen now? This is not an ordinary situation. It is an organized event. He will pay the price for this. If the judiciary makes a decision, it will be impossible for him to stay in that seat.",
+                            "feedback": "Yavaş answers, \"I am not afraid of anyone but God,\" but his potential campaign ends early due to legal troubles. Unfortunately, Kılıçdaroğlu will use the \"allegations\" that you intervened in the judiciary to take Yavaş out. As a result of your supposed actions, some nationalists who supported Yavaş now support Kılıçdaroğlu.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.07
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33651,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.04
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33655,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.05
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21475,
+                                    "stateId": 16097,
+                                    "amount": 0.08
+                                }
+                            ]
+                        },
+                        {
+                            "id": 134,
+                            "description": "Kurds are our brothers wherever they live. No one can separate us from each other. Just as flesh cannot be separated from bone, so too our brotherhood cannot be separated. The CHP are the real racists.",
+                            "feedback": "As you focus more and more on the Kurdish voters, Yavaş gains enough momentum, ultimately securing the CHP-İYİ Party nomination. Some members of the \"Table Of Six\" walks out in protest, but Yavaş has massive support from the nationalists. Let's see what will happen now.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33662,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1.2
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33651,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -10000000
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": 0.5
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33662,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": -0.07
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497603,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497611,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497616,
+                                    "questionEnabled": true
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497617,
+                                    "questionEnabled": true
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497604,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497609,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497618,
+                                    "questionEnabled": true
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497607,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497612,
+                                    "questionEnabled": true
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497619,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497601,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33657,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -999
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.08
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497620,
+                                    "questionEnabled": true
+                                }
+                            ]
+                        },
+                        {
+                            "id": 135,
+                            "description": "Look at Ankara! They haven't even been able to provide water to the capital for weeks. They are making us experience Karbala in 2026. This is incompetence! You cannot govern a country by just sitting there and acting like a 'state man.' If you haven't managed a city, how will you manage a nation?",
+                            "feedback": "No matter how you try to spin it, these criticisms just aren't sticking, probably because Yavaş is so popular. Yavaş gains enough momentum, ultimately securing the CHP-İYİ Party nomination. Some members of the \"Table Of Six\" walks out in protest, but Yavaş has massive support from the nationalists. Let's see what will happen now.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33662,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1.15
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33651,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -9999999990
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33662,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": -0.05
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497603,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497611,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497616,
+                                    "questionEnabled": true
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497617,
+                                    "questionEnabled": true
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497604,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497609,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497618,
+                                    "questionEnabled": true
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497607,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497612,
+                                    "questionEnabled": true
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497619,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0,
+                                    "questionId": 497601,
+                                    "questionEnabled": false
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33657,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -9999
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.06
+                                },
+                                {
+                                    "answerEffectType": "SetQuestionEnabled",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 1,
+                                    "questionId": 497620,
+                                    "questionEnabled": true
+                                }
+                            ]
+                        }
+                    ],
+                    "keepInPlaceIfQuestionsShuffled": true,
+                    "enabled": true,
+                    "onlyEnableAtStartIfRunningMateId": 33661
+                },
+                {
+                    "id": 497616,
+                    "description": "The \"Table of Six\" has finally shattered after a chaotic night of accusations. Meral Akşener’s İYİ Party successfully pushed for Mansur Yavaş, the quiet nationalist mayor of Ankara, as the joint nominee. While the smaller parties returned to the table after being promised key ministries, a massive fracture has occurred: the Green Left (Kurdish) block has refused to support a candidate with a \"Grey Wolf\" (nationalist) background. They have announced they will run their own candidate. This is a double-edged sword for you. Your opponent is now a nationalist who appeals to your own base, but he has lost the critical Kurdish support that was the only way for the opposition to reach 50%.",
+                    "answers": [
+                        {
+                            "id": 136,
+                            "description": "Look at their state! They couldn't even manage a single table, how will they manage 85 million people? They broke it, they fixed it, they fought over seats... This is not a political alliance; this is a 'gambling table'. While they play with ministries like children, we are building the 'Century of Turkey.",
+                            "feedback": "That's it?",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.13
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33662,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.08
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21475,
+                                    "stateId": 16097,
+                                    "amount": 0.03
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33663,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.2
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33662,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": -4
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33663,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": 4
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33655,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -999
+                                }
+                            ]
+                        },
+                        {
+                            "id": 137,
+                            "description": "If you are looking for an enemy of the Kurds, look at the CHP! They have ignored our Kurdish brothers once again to satisfy their dark alliances. They see you as a 'vote bridge' to be crossed and forgotten. We, however, say that Kurds and Turks are flesh and bone.",
+                            "feedback": "You announced a new \"peace process\" in order to \"peacefully end terror\" in a pivot to pander to Kurdish voters. This will make the distinction between you and Yavaş much clearer. You dropped the whole \"Nationalist\" act.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.15
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33662,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.1
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33663,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.2
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": 0.5
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33662,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": -4
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33663,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": 4
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21475,
+                                    "stateId": 16097,
+                                    "amount": 0.5
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33655,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -99999999
+                                }
+                            ]
+                        },
+                        {
+                            "id": 138,
+                            "description": "Those who left us to find a new path ended up as 'filling material' for the tables of the opposition. I say to my brothers who were deceived by them: Your home is here. Do not waste your breath in the service of others' agendas.",
+                            "feedback": "You are appealing to former comrades who joined the \"Table of Six\", and it partly works. Some of your old friends return, but advisors are doubtful how much this will affect the populace.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.14
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33662,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.09
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33663,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.195
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33663,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": 4
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33662,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": -4
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21474,
+                                    "stateId": 16097,
+                                    "amount": -0.05
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21475,
+                                    "stateId": 16097,
+                                    "amount": 0.02
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33655,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -99999
+                                }
+                            ]
+                        }
+                    ],
+                    "keepInPlaceIfQuestionsShuffled": true,
+                    "enabled": false,
+                    "onlyEnableAtStartIfRunningMateId": 33661
+                },
+                {
                     "id": 497598,
                     "description": "Fatih Erbakan, leader of the Welfare Again Party and son of former Prime Minister Necmettin Erbakan, officially announces his independent presidential candidacy for 2023. He positions himself as the true voice of Milli Görüş values, criticizing your government for deviating from Islamic principles and economic justice. This risks splitting the conservative vote in your heartland. How will you respond to his challenge?",
                     "answers": [
@@ -7484,6 +8752,78 @@
                     "onlyEnableAtStartIfRunningMateId": -1
                 },
                 {
+                    "id": 497617,
+                    "description": "In the weeks following the February 6 earthquakes, intense backlash grows against the government's response. Survivors in tent cities face freezing conditions, delayed aid, collapsed search efforts, and accusations of favoritism in relief distribution. Opposition figures and social media highlight destroyed buildings linked to construction amnesties granted under your administration, while some demand accountability. How will you address this mounting criticism in the run-up to the May elections?",
+                    "answers": [
+                        {
+                            "id": 139,
+                            "description": "Some dishonorable, dishonest people are making false statements such as ‘We didn’t see any soldiers or police helping us.’ Our soldiers and police are honorable. We won’t let the disreputable speak of them like this.",
+                            "feedback": "The criticism continues.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.02
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21475,
+                                    "stateId": 16097,
+                                    "amount": -0.006
+                                }
+                            ]
+                        },
+                        {
+                            "id": 140,
+                            "description": "These ungrateful people, who see it as their duty to throw mud at every project, work, service, and investment for the nation, is trying to turn our earthquake victims' pain into profit and exploit their emotions. They left no slander unsaid, no lie untold, no disinformation undone.",
+                            "feedback": "Your harsh tone doesn't come off well in the aftermath of this, but some of your supporters agree with you.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.025
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.2
+                                }
+                            ]
+                        },
+                        {
+                            "id": 141,
+                            "description": "The 2023 earthquakes inflicted a direct economic cost of $104 billion and an indirect cost of $150 billion. From the moment of the earthquake, as the state, we have been on the ground with all our institutions",
+                            "feedback": "This answer is neutral, grounded answer, but some say that you're giving ground to the opposition.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.01
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33662,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.005
+                                }
+                            ]
+                        }
+                    ],
+                    "keepInPlaceIfQuestionsShuffled": true,
+                    "enabled": false,
+                    "onlyEnableAtStartIfRunningMateId": 33661
+                },
+                {
                     "id": 497602,
                     "description": "You extend the state of emergency in the 11 earthquake-hit provinces for another three months. This grants expanded powers for rapid reconstruction, aid distribution, and security measures amid ongoing recovery efforts. Critics accuse the move of centralizing control and limiting local opposition oversight just weeks before the May elections, while supporters praise it as essential for swift rebuilding. How will you frame and defend this decision publicly?",
                     "answers": [
@@ -7635,6 +8975,64 @@
                     "onlyEnableAtStartIfRunningMateId": -1
                 },
                 {
+                    "id": 497620,
+                    "description": "Mansur Yavaş becoming the candidate has undermined your traditional attacks on the opposition as \"anti-state\" and \"traitors,\" since Yavaş is openly distancing himself from separatist factions and embracing nationalism. What will your new angle be to attack him?",
+                    "answers": [
+                        {
+                            "id": 146,
+                            "description": "Nationalism isn't done by sitting in a chair and making quiet poses. Real nationalism is building TCG Anadolu, it’s putting the national car on the road, it’s making the 'Century of Turkey.' These are 'filling materials' for the tables of global powers. They have no vision, no projects, no results.",
+                            "feedback": "Your numbers are still falling, but at least you've regained some support.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.08
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33662,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.09
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21475,
+                                    "stateId": 16097,
+                                    "amount": -0.05
+                                }
+                            ]
+                        },
+                        {
+                            "id": 147,
+                            "description": "Not a single nail has been hammered in Ankara for two years. There is no such thing as service in Ankara; they are making people miss the old days.",
+                            "feedback": "You keep losing support, Yavaş is popular in Ankara.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.09
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33662,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.1
+                                }
+                            ]
+                        }
+                    ],
+                    "keepInPlaceIfQuestionsShuffled": true,
+                    "enabled": false,
+                    "onlyEnableAtStartIfRunningMateId": 33661
+                },
+                {
                     "id": 497603,
                     "description": "On March 16, 2023, Sinan Oğan, a former MHP MP and nationalist figure, officially announces his presidential candidacy under the Ancestral Alliance (Ultranationalist Victory Party + others). He campaigns heavily on anti-refugee rhetoric, promising mass deportations of Syrians and framing himself as the true defender of Turkish nationalism against both your government and the opposition's 'soft' stance. This threatens to split the nationalist vote in your strongholds. How will you respond to his entry into the race?",
                     "answers": [
@@ -7768,6 +9166,85 @@
                     "keepInPlaceIfQuestionsShuffled": true,
                     "enabled": true,
                     "onlyEnableAtStartIfRunningMateId": -1
+                },
+                {
+                    "id": 497614,
+                    "description": "Several high-ranking military commanders and nationalist figures close to your inner circle privately urge you to launch a major new cross-border operation into northern Syria against the YPG/PYD. They argue it would decisively 'eradicate the terrorist threat' on Turkey's southern border, with some \"suggestions\" that it would rally the nationalist base, boost your approval ratings ahead of the election, and send a powerful message of strength. They warn that hesitation could be seen as weakness. At the same time, diplomats and economic advisors caution that such an operation risks international backlash, economic sanctions, and renewed instability just before the vote. What is your decision?",
+                    "answers": [
+                        {
+                            "id": 130,
+                            "description": "We will uproot the scourge of terrorism from its roots, we will not stop until the last terrorist is neutralized. Launch Operation Steel Dawn.",
+                            "feedback": "The operation goes moderately well, but it doesn't seem like it will make a significant difference for the voter base since you and your supporters seem reluctant to politicize this issue. However, some Kurds and nationalists have become more motivated.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21475,
+                                    "stateId": 16097,
+                                    "amount": -0.07
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": -0.09
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.01
+                                }
+                            ]
+                        },
+                        {
+                            "id": 131,
+                            "description": "In Turkey, there is a group called the \"Opposition\", but whose actions have turned it into the main treason party. They will certainly be greatly distressed by our anti-terror actions. Launch Operation Steel Dawn.",
+                            "feedback": "Your attacks are not well-received as the operation get quickly politicized. However, you will still receive nationalist support as Kurdish activists gain momentum in the opposition. This could help you.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21475,
+                                    "stateId": 16097,
+                                    "amount": -0.11
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21477,
+                                    "stateId": 16097,
+                                    "amount": -0.13
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.03
+                                }
+                            ]
+                        },
+                        {
+                            "id": 132,
+                            "description": "There are no winners in war, and no losers in peace. For now we will give these terrorist organizations some time to drop their weapons.",
+                            "feedback": "Fair.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.01
+                                }
+                            ]
+                        }
+                    ],
+                    "keepInPlaceIfQuestionsShuffled": true,
+                    "enabled": true,
+                    "onlyEnableAtStartIfRunningMateId": 33652
                 },
                 {
                     "id": 497604,
@@ -7980,7 +9457,72 @@
                     ],
                     "keepInPlaceIfQuestionsShuffled": true,
                     "enabled": true,
-                    "onlyEnableAtStartIfRunningMateId": -1
+                    "onlyEnableAtStartIfRunningMateId": 33652
+                },
+                {
+                    "id": 497618,
+                    "description": "In late April and early May 2023, your government launches a massive pre-election economic relief package: minimum wage increased by 45%, early retirement (EYT) for 2+ million people implemented, natural gas subsidies extended for households, pension bonuses doubled, and direct cash aid distributed widely. Critics call it 'election bribes' to buy votes amid high inflation, but many low-income families and retirees benefit immediately. How will you present and defend this spending surge to the public?",
+                    "answers": [
+                        {
+                            "id": 142,
+                            "description": "We are upsetting those who have been saying 'you can't do it' since the first day, those table friends of Untalented Mansur. They said 'there is no gas.' We found it, we extracted it, and now we are bringing it to our people's doorsteps. They call these 'election investments.' No, this is the fruit of a vision we have been knitting for 21 years.",
+                            "feedback": "They can say whatever they want, people like these aids.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.07
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.01
+                                }
+                            ]
+                        },
+                        {
+                            "id": 143,
+                            "description": "They are disturbed by the fact that our citizens are breathing a sigh of relief. They ask where the money comes from. It comes from the resources of this country that we didn't let thieves steal.",
+                            "feedback": "",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.06
+                                },
+                                {
+                                    "answerEffectType": "Issue",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.02
+                                }
+                            ]
+                        },
+                        {
+                            "id": 144,
+                            "description": "We increased the lowest pension to 7,500 Liras. We will continue to improve the conditions of our retirees. We increased the holiday bonuses by nearly 100 percent. It's a gift for the feast.",
+                            "feedback": "You ignore the opposition, which could be beneficial during this time.",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.065
+                                }
+                            ]
+                        }
+                    ],
+                    "keepInPlaceIfQuestionsShuffled": true,
+                    "enabled": false,
+                    "onlyEnableAtStartIfRunningMateId": 33661
                 },
                 {
                     "id": 497607,
@@ -8411,11 +9953,11 @@
                     "onlyEnableAtStartIfRunningMateId": -1
                 },
                 {
-                    "id": 497612,
+                    "id": 497619,
                     "description": "The first ballots are being counted, and the results appearing on state-run agencies are causing a shockwave. For weeks, every major polling company predicted you were trailing behind Kemal Kılıçdaroğlu, with some even suggesting a first-round loss. However, as the boxes from Anatolia open, you are overperforming the polls by a large margin. The opposition is in a frenzy, accusing agencies of \"manipulation,\" but the data shows your base has held firm.",
                     "answers": [
                         {
-                            "id": 69,
+                            "id": 145,
                             "description": "They thought they could design Turkish politics through social media operations and ordered polls. But they forgot one thing: The National Will! Those who looked at the polls were wrong; those who looked at the people will win!",
                             "feedback": "",
                             "answerEffects": [
@@ -8446,6 +9988,36 @@
                     "keepInPlaceIfQuestionsShuffled": true,
                     "enabled": true,
                     "onlyEnableAtStartIfRunningMateId": -1
+                },
+                {
+                    "id": 497612,
+                    "description": "The first ballots are being counted, and the results appearing on state-run agencies are causing a shockwave. For weeks, every major polling company predicted you were trailing behind Mansur Yavaş, with some even suggesting a first-round loss. However, as the boxes from Anatolia open, you are overperforming the polls by a large margin. The opposition is in a frenzy, accusing agencies of \"manipulation,\" but the data shows your base has held firm.",
+                    "answers": [
+                        {
+                            "id": 69,
+                            "description": "They thought they could design Turkish politics through social media operations and ordered polls. But they forgot one thing: The National Will! Those who looked at the polls were wrong; those who looked at the people will win!",
+                            "feedback": "",
+                            "answerEffects": [
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33650,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": 0.16
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33662,
+                                    "issueId": 21473,
+                                    "stateId": 16097,
+                                    "amount": -0.14
+                                }
+                            ]
+                        }
+                    ],
+                    "keepInPlaceIfQuestionsShuffled": true,
+                    "enabled": false,
+                    "onlyEnableAtStartIfRunningMateId": 33661
                 }
             ]
         },
@@ -8596,7 +10168,7 @@
                                     "candidateId": 33651,
                                     "issueId": 21473,
                                     "stateId": 16097,
-                                    "amount": 0.01
+                                    "amount": -0.01
                                 },
                                 {
                                     "answerEffectType": "Issue",
@@ -8609,6 +10181,13 @@
                                     "answerEffectType": "Issue",
                                     "candidateId": 33651,
                                     "issueId": 21475,
+                                    "stateId": 16097,
+                                    "amount": 0.05
+                                },
+                                {
+                                    "answerEffectType": "Global",
+                                    "candidateId": 33655,
+                                    "issueId": 21473,
                                     "stateId": 16097,
                                     "amount": 0.05
                                 }
@@ -9276,7 +10855,7 @@
                                     "candidateId": 33655,
                                     "issueId": 21473,
                                     "stateId": 16097,
-                                    "amount": 0.1
+                                    "amount": 0.12
                                 }
                             ]
                         },
@@ -9304,7 +10883,7 @@
                                     "candidateId": 33655,
                                     "issueId": 21473,
                                     "stateId": 16097,
-                                    "amount": 0.12
+                                    "amount": 0.14
                                 },
                                 {
                                     "answerEffectType": "Issue",
@@ -9339,7 +10918,7 @@
                                     "candidateId": 33655,
                                     "issueId": 21473,
                                     "stateId": 16097,
-                                    "amount": 0.09
+                                    "amount": 0.11
                                 },
                                 {
                                     "answerEffectType": "Issue",
