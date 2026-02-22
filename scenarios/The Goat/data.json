@@ -8447,7 +8447,7 @@
                     ],
                     "keepInPlaceIfQuestionsShuffled": true,
                     "enabled": false,
-                    "onlyEnableAtStartIfRunningMateId": 33661
+                    "onlyEnableAtStartIfRunningMateId": -1
                 },
                 {
                     "id": 497598,
@@ -8821,7 +8821,7 @@
                     ],
                     "keepInPlaceIfQuestionsShuffled": true,
                     "enabled": false,
-                    "onlyEnableAtStartIfRunningMateId": 33661
+                    "onlyEnableAtStartIfRunningMateId": -1
                 },
                 {
                     "id": 497602,
@@ -9030,7 +9030,7 @@
                     ],
                     "keepInPlaceIfQuestionsShuffled": true,
                     "enabled": false,
-                    "onlyEnableAtStartIfRunningMateId": 33661
+                    "onlyEnableAtStartIfRunningMateId": -1
                 },
                 {
                     "id": 497603,
@@ -9522,7 +9522,7 @@
                     ],
                     "keepInPlaceIfQuestionsShuffled": true,
                     "enabled": false,
-                    "onlyEnableAtStartIfRunningMateId": 33661
+                    "onlyEnableAtStartIfRunningMateId": -1
                 },
                 {
                     "id": 497607,
@@ -10017,7 +10017,7 @@
                     ],
                     "keepInPlaceIfQuestionsShuffled": true,
                     "enabled": false,
-                    "onlyEnableAtStartIfRunningMateId": 33661
+                    "onlyEnableAtStartIfRunningMateId": -1
                 }
             ]
         },
