@@ -53,7 +53,7 @@ function createEnding(engine, results) {
         }
         
         // Ending 2: Erdogan >40% and Mansur < Erdogan
-        if (mansurPvs > 0.1 && mansurPercentage < erdoganPercentage) {
+        if (mansurPvs > 0.1 && mansurPercentage < erdoganPercentage && erdoganPercentage < 0.50) {
             engine.setNewMusic([
                 {
                     displayName: "Saat Kaç",
@@ -73,7 +73,7 @@ function createEnding(engine, results) {
         }
 
         // Ending 3: Erdogan wins more than 50% with running mate 33652
-        if (erdoganPercentage > 0.50 && runningMateId === 33652) {
+        if (erdoganPercentage > 0.50 && runningMateId === 33652 && mansurPvs < 0.01) {
             engine.setNewMusic([
                 {
                     displayName: "Dombra",
@@ -86,11 +86,31 @@ function createEnding(engine, results) {
                     {
                         imageUrl: "https://static.bianet.org/system/uploads/1/articles/spot_image/000/279/496/original/erdogan-yedili-balkon-aa-1.jpg",
                         endingHeader: "The Century of Turkey Begins",
-                        endingText: "Standing on the legendary balcony of the AK Party headquarters, you look down at a crowd of hundreds of thousands. You have not just won an election; you have defeated a unified opposition, survived an economic crisis, and proven that the 'National Will' remains firmly in your grip. Your critics called your spending 'bribes,' but tonight, the people called it 'justice.' With a crushing parliamentary majority also secured, the checks and balances are gone. You are no longer just a President; you are the undisputed architect of the Century of Turkey. 'The only winner tonight is not me, it is Turkey! My nation has given the necessary answer to those who take orders from Qandil and Pennsylvania. They said 'Bay Bay Kemal' (Bye Bye Kemal), and the nation sent him home. Now, we leave the bickering behind. We have a world to lead and a century to build!"
+                        endingText: "Standing on the legendary balcony of the AK Party headquarters, you look down at a crowd of hundreds of thousands. You have not just won an election; you have defeated a unified opposition, survived an economic crisis, and proven that the 'National Will' remains firmly in your grip. Your critics called your spending 'bribes,' but tonight, the people called it 'justice.' With a crushing parliamentary majority also secured, the checks and balances are gone. You are no longer just a President; you are the undisputed architect of the Century of Turkey. 'The only winner tonight is not me, it is Turkey! My nation has given the necessary answer to those who take orders from Qandil and Pennsylvania. They said 'Bay Bay Kemal' (Bye Bye Kemal), and the nation sent him home. Now, we leave the bickering behind. We have a world to lead and a century to build!'"
                     }
                 ]
             };
         }
+
+        if (erdoganPercentage > 0.50 && mansurPvs > 0.01) {
+            engine.setNewMusic([
+                {
+                    displayName: "Dombra",
+                    imageUrl: "https://i.ytimg.com/vi/kddlMQAWHqU/maxresdefault.jpg",
+                    url: "https://ia600802.us.archive.org/0/items/onur-akin-geliyor-kilicdaroglu-yeni-versiyon/Dombra.mp3",
+                }
+            ]);
+            return {
+                slides: [
+                    {
+                        imageUrl: "https://static.bianet.org/system/uploads/1/articles/spot_image/000/279/496/original/erdogan-yedili-balkon-aa-1.jpg",
+                        endingHeader: "The Century of Turkey Begins",
+                        endingText: "Standing on the legendary balcony of the AK Party headquarters, you look down at a crowd of hundreds of thousands. You have not just won an election; you have defeated a unified opposition, survived an economic crisis, and proven that the 'National Will' remains firmly in your grip. Your critics called your spending 'bribes,' but tonight, the people called it 'justice.' With a crushing parliamentary majority also secured, the checks and balances are gone. You are no longer just a President; you are the undisputed architect of the Century of Turkey. 'The only winner tonight is not me, it is Turkey! My nation has given the necessary answer to those who take orders from Qandil and Pennsylvania. Now, we leave the bickering behind. We have a world to lead and a century to build!'"
+                    }
+                ]
+            };
+        }
+
 
         // Ending 4: Erdogan wins more than 50% with running mate 33661
         if (erdoganPercentage > 0.50 && runningMateId === 33661) {
