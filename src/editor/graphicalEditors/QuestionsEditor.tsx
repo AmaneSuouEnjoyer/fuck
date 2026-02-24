@@ -60,6 +60,9 @@ function QuestionsEditor(props: QuestionsEditorProps) {
   const questions = side.questions;
 
   function deleteQuestion() {
+    if (!window.confirm("Are you sure you want to delete this question?")) {
+        return;
+    }
     side.questions.splice(questionIndex, 1);
     setData(JSON.parse(JSON.stringify(data)));
     if (
@@ -68,7 +71,7 @@ function QuestionsEditor(props: QuestionsEditorProps) {
     ) {
       setQuestionIndex(side.questions.length - 1);
     }
-  }
+}
 
   function highestQuestionId() {
     if (side.questions.length == 0) {
