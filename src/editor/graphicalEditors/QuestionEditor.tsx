@@ -1,153 +1,186 @@
-import { AnswerModel } from "../../oseg/engine/models/AnswerModel";
+import { useEffect } from "react";
 import { QuestionModel } from "../../oseg/engine/models/QuestionModel";
 import { ScenarioModel } from "../../oseg/engine/models/ScenarioModel";
-import GenericEditorCheckbox from "../components/GenericEditorCheckbox";
-import GenericEditorTextArea from "../components/GenericEditorTextArea";
-import AnswerEditor from "./AnswerEditor";
-import "./QuestionEditor.css";
-interface QuestionEditorProps {
+import QuestionEditor from "./QuestionEditor";
+
+interface QuestionsEditorProps {
   data: ScenarioModel;
   setData: (data: ScenarioModel) => void;
-  question: QuestionModel;
-  questionIndex: number;
   sideIndex: number;
+  setSideIndex: (sideIndex: number) => void;
+  questionIndex: number;
+  setQuestionIndex: (questionIndex: number) => void;
 }
 
-function QuestionEditor(props: QuestionEditorProps) {
-  const { data, setData, question, questionIndex, sideIndex } = props;
-
-  const candidateId = data.scenarioSides[sideIndex].playerId;
-  const candidate = data.candidates.filter((x) => x.id == candidateId)[0];
-  const runningMateIds = new Set(candidate.runningMateIds);
-  const runningMates = data.candidates.filter((x) => runningMateIds.has(x.id));
-
-  function updateFieldAndUpdateData<T>(field: string, newValue: T) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const dynamicQuestion = question as { [k: string]: any };
-    dynamicQuestion[field] = newValue;
-    setData(JSON.parse(JSON.stringify(data)));
+function QuestionsEditor(props: QuestionsEditorProps) {
+  function getNameForCandidate(id: number) {
+    const can = data.candidates.filter((x) => x.id == id)[0];
+    return can.firstName + " " + can.lastName;
   }
 
-  function getHighestAnswerId() {
-    if (
-      data.scenarioSides.length == 0 ||
-      data.scenarioSides[0].questions.length == 0
-    ) {
-      return Math.round(Math.random() * 565464);
+  const {
+    data,
+    setData,
+    sideIndex,
+    setSideIndex,
+    questionIndex,
+    setQuestionIndex,
+  } = props;
+
+  const side = data.scenarioSides[sideIndex];
+
+  useEffect(() => {
+    if (side != undefined) {
+      setQuestionIndex(0);
     }
+  }, [sideIndex]);
 
-    let highest = 0;
-
-    for (const side of data.scenarioSides) {
-      for (const question of side.questions) {
-        for (const answer of question.answers) {
-          highest = Math.max(highest, answer.id);
-        }
-      }
-    }
-
-    return highest;
+  if (data.scenarioSides.length == 0 || side == undefined) {
+    return (
+      <p>
+        There are no scenario sides defined. Go to Candidates and create a new
+        ScenarioSide from there for the candidate you want to make questions for.
+      </p>
+    );
   }
 
-  function addAnswer() {
-    const id = getHighestAnswerId() + 1;
-    question.answers.push({
-      id: id,
-      description: "Answer description here",
-      feedback: "Answer feedback here, leave blank for none",
-      answerEffects: [],
-    });
-    setData(JSON.parse(JSON.stringify(data)));
-  }
+  const questions = side.questions;
 
-  function cloneAnswer(answer: AnswerModel) {
-    const newAnswer = JSON.parse(JSON.stringify(answer));
-    newAnswer.id = getHighestAnswerId() + 1;
-    question.answers.push(newAnswer);
-    setData(JSON.parse(JSON.stringify(data)));
-  }
+  const addQuestion = () => {
+    const newQuestion: QuestionModel = {
+      id: Math.round(Math.random() * 10000000),
+      description: "New question description here",
+      answers: [],
+      keepInPlaceIfQuestionsShuffled: false,
+      enabled: true,
+    };
+    const newQuestions = [...questions, newQuestion];
+    const newSides = [...data.scenarioSides];
+    newSides[sideIndex] = {
+      ...newSides[sideIndex],
+      questions: newQuestions,
+    };
+    setData({ ...data, scenarioSides: newSides });
+    setQuestionIndex(newQuestions.length - 1);
+  };
 
-  if (question == undefined) {
-    return <p>Question is undefined</p>;
+  const deleteQuestion = (e: React.MouseEvent) => {
+  // Prevent event bubbling
+  e.stopPropagation();
+  
+  // Add confirmation dialog
+  if (!window.confirm("⚠️ Are you sure you want to delete this question? This cannot be undone.")) {
+    return; // Exit early if user cancels
   }
+  
+  // Proceed with deletion
+  const newQuestions = side.questions.filter((_, idx) => idx !== questionIndex);
+  
+  const newSides = [...data.scenarioSides];
+  newSides[sideIndex] = {
+    ...newSides[sideIndex],
+    questions: newQuestions
+  };
+  
+  // Force a deep copy to ensure React detects the change
+  setData(JSON.parse(JSON.stringify({ ...data, scenarioSides: newSides })));
+  
+  // Update question index if needed
+  if (questionIndex >= newQuestions.length) {
+    setQuestionIndex(Math.max(0, newQuestions.length - 1));
+  }
+};
+
+  const cloneQuestion = () => {
+    const currentQuestion = questions[questionIndex];
+    const newQuestion = JSON.parse(JSON.stringify(currentQuestion));
+    newQuestion.id = Math.round(Math.random() * 10000000);
+    const newQuestions = [...questions];
+    newQuestions.splice(questionIndex + 1, 0, newQuestion);
+    const newSides = [...data.scenarioSides];
+    newSides[sideIndex] = {
+      ...newSides[sideIndex],
+      questions: newQuestions,
+    };
+    setData({ ...data, scenarioSides: newSides });
+    setQuestionIndex(questionIndex + 1);
+  };
+
+  const moveQuestionUp = () => {
+    if (questionIndex <= 0) return;
+    const newQuestions = [...questions];
+    const temp = newQuestions[questionIndex];
+    newQuestions[questionIndex] = newQuestions[questionIndex - 1];
+    newQuestions[questionIndex - 1] = temp;
+    const newSides = [...data.scenarioSides];
+    newSides[sideIndex] = {
+      ...newSides[sideIndex],
+      questions: newQuestions,
+    };
+    setData({ ...data, scenarioSides: newSides });
+    setQuestionIndex(questionIndex - 1);
+  };
+
+  const moveQuestionDown = () => {
+    if (questionIndex >= questions.length - 1) return;
+    const newQuestions = [...questions];
+    const temp = newQuestions[questionIndex];
+    newQuestions[questionIndex] = newQuestions[questionIndex + 1];
+    newQuestions[questionIndex + 1] = temp;
+    const newSides = [...data.scenarioSides];
+    newSides[sideIndex] = {
+      ...newSides[sideIndex],
+      questions: newQuestions,
+    };
+    setData({ ...data, scenarioSides: newSides });
+    setQuestionIndex(questionIndex + 1);
+  };
 
   return (
     <div>
-      <h2>Question Editor</h2>
-
-      <h3>Question {questionIndex + 1}.</h3>
-
-      <div className="EditorBox">
-        <p style={{ fontWeight: "bold" }}>Id: {question.id}</p>
-
-        <GenericEditorTextArea
-          defaultValue={question.description}
-          onChange={(e) =>
-            updateFieldAndUpdateData<string>("description", e.target.value)
-          }
-          label={"Description"}
-        />
-
-        <GenericEditorCheckbox
-          label={"Keep In Place if Questions Shuffled"}
-          defaultValue={question.keepInPlaceIfQuestionsShuffled}
-          onChange={(e) =>
-            updateFieldAndUpdateData<boolean>(
-              "keepInPlaceIfQuestionsShuffled",
-              e.target.checked
-            )
-          }
-        ></GenericEditorCheckbox>
-
-        <GenericEditorCheckbox
-          label={"Enabled at Start"}
-          defaultValue={question.enabled ?? true}
-          onChange={(e) =>
-            updateFieldAndUpdateData<boolean>("enabled", e.target.checked)
-          }
-        ></GenericEditorCheckbox>
-        <p className="EditorNote">
-          A disabled question will be skipped when the game is played unless you
-          enable it using CYOA code.
-        </p>
-
-        <label>Only show this question if your running mate is: </label>
+      <h2>Questions for {getNameForCandidate(side.playerId)}</h2>
+      <div className="QuestionSelector">
         <select
-          value={question.onlyEnableAtStartIfRunningMateId ?? -1}
-          onChange={(e) =>
-            updateFieldAndUpdateData<number>(
-              "onlyEnableAtStartIfRunningMateId",
-              Number(e.target.value)
-            )
-          }
+          value={questionIndex}
+          onChange={(e) => setQuestionIndex(Number(e.target.value))}
         >
-          <option value={-1}>Always Show</option>
-          {runningMates.map((x) => (
-            <option value={x.id}>
-              {x.firstName} {x.lastName}
+          {questions.map((question, index) => (
+            <option key={question.id} value={index}>
+              {index + 1} - {question.description.slice(0, 30)}...
             </option>
           ))}
         </select>
-      </div>
 
-      <h3>Answers</h3>
-      <div>
-        {question.answers.map((answer) => (
-          <AnswerEditor
-            sideIndex={sideIndex}
-            associatedQuestion={question}
-            setData={setData}
-            data={data}
-            answer={answer}
-            cloneAnswer={cloneAnswer}
-          ></AnswerEditor>
-        ))}
-        <button onClick={addAnswer} className="GreenButton">
-          Add Answer
+        <button className="GreenButton" onClick={addQuestion}>
+          +
         </button>
+        <button className="RedButton" onClick={deleteQuestion}>
+          -
+        </button>
+        <button className="BlueButton" onClick={cloneQuestion}>
+          Clone
+        </button>
+
+        <button disabled={questionIndex <= 0} onClick={moveQuestionUp}>
+          ⬆️
+        </button>
+        <button
+          disabled={questionIndex >= side.questions.length - 1}
+          onClick={moveQuestionDown}
+        >
+          ⬇️
+        </button>
+
+        <QuestionEditor
+          sideIndex={sideIndex}
+          questionIndex={questionIndex}
+          question={side.questions[questionIndex]}
+          data={data}
+          setData={setData}
+        ></QuestionEditor>
       </div>
     </div>
   );
 }
 
-export default QuestionEditor;
+export default QuestionsEditor;
