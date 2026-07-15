@@ -60,18 +60,6 @@ function QuestionsEditor(props: QuestionsEditorProps) {
   const questions = side.questions;
 
   function deleteQuestion() {
-    if (!window.confirm(
-        "⚠️ Are you sure you want to delete this question?\n\n" +
-        "This will permanently delete:\n" +
-        "• The question itself\n" +
-        "• All answers\n" +
-        "• All answer effects\n" +
-        "• All feedback text\n\n" +
-        "This action CANNOT be undone.\n\n" +
-        "Click OK to delete, or Cancel to keep the question."
-    )) {
-        return;
-    }
     side.questions.splice(questionIndex, 1);
     setData(JSON.parse(JSON.stringify(data)));
     if (
@@ -80,7 +68,7 @@ function QuestionsEditor(props: QuestionsEditorProps) {
     ) {
       setQuestionIndex(side.questions.length - 1);
     }
-}
+  }
 
   function highestQuestionId() {
     if (side.questions.length == 0) {
