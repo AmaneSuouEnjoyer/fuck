@@ -20,9 +20,13 @@ function CandidateSelectionView(props: CandidateSelectionViewProps) {
 
   const [choosingRunningMate, setChoosingRunningMate] = useState(!canChooseCandidate);
 
-  const [selectedCandidate, setSelectedCandidate] = useState<number>(
-    firstCandidateWithSideId()
-  );
+  const [selectedCandidate, setSelectedCandidate] = useState(() => {
+    if (!canChooseCandidate) {
+        // When choosing running mate mid-game, use the player's candidate
+        return engine.getPlayerCandidateController().getId();
+    }
+    return firstCandidateWithSideId();
+  });
 
   const [selectedRunningMate, setSelectedRunningMate] = useState<number>( () => {
       if(engine.runningMateId != -1) {
