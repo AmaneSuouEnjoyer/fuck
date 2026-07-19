@@ -469,6 +469,19 @@ class Engine {
                         console.error("Cannot enable question as questionEnabled or questionId is undefined");
                     }
                 }
+                // --- ADDED: AddCounter effect handler ---
+                else if (answerEffectType == AnswerEffectType.AddCounter) {
+                    if (answerEffect.counterName && answerEffect.counterAmount !== undefined) {
+                        if (this.counters.has(answerEffect.counterName)) {
+                            this.addCounter(answerEffect.counterName, answerEffect.counterAmount);
+                        } else {
+                            console.error("Cannot add to counter '" + answerEffect.counterName + "' because it doesn't exist. Make sure to initialize it in onScenarioStarted.");
+                        }
+                    } else {
+                        console.error("Cannot add to counter: counterName or counterAmount is undefined");
+                    }
+                }
+                // --- END AddCounter ---
                 else if (answerEffectType == AnswerEffectType.TctIssue) {
                     const amount = answerEffect.amount;
                     const weight = answerEffect.weight ?? 1;
@@ -1266,4 +1279,3 @@ class Engine {
 }
 
 export { Engine, GameState };
-

@@ -31,7 +31,6 @@ function AnswerEffectEditor(props: AnswerEffectEditorProps) {
     const typedAnswerEffectType = AnswerEffectType[answerEffect.answerEffectType as keyof typeof AnswerEffectType];
 
     function deleteAnswerEffect() {
-        // ← ADDED CONFIRMATION DIALOG HERE
         if (!window.confirm(
             "⚠️  Bu Answer Effect'i silmek istiyorsunuz!\n\n" +
             "Bu işlem geri alınamaz.\n" +
@@ -39,10 +38,9 @@ function AnswerEffectEditor(props: AnswerEffectEditorProps) {
             "Silmek istediğinize emin misiniz?\n\n" +
             "Tamam = Sil   /   İptal = Vazgeç"
         )) {
-            return; // User canceled → do nothing
+            return;
         }
 
-        // Actual deletion
         associatedAnswer.answerEffects = associatedAnswer.answerEffects.filter((x) => x !== answerEffect);
         setData(JSON.parse(JSON.stringify(data)));
     }
@@ -53,7 +51,13 @@ function AnswerEffectEditor(props: AnswerEffectEditorProps) {
             candidateId: answerEffect.candidateId,
             issueId: answerEffect.issueId,
             stateId: answerEffect.stateId,
-            amount: answerEffect.amount
+            amount: answerEffect.amount,
+            // Clone counter fields if they exist
+            counterName: answerEffect.counterName,
+            counterAmount: answerEffect.counterAmount,
+            questionId: answerEffect.questionId,
+            questionEnabled: answerEffect.questionEnabled,
+            weight: answerEffect.weight,
         };
         associatedAnswer.answerEffects.push(clone);
         setData(JSON.parse(JSON.stringify(data)));
@@ -86,7 +90,7 @@ function AnswerEffectEditor(props: AnswerEffectEditorProps) {
                 </select>
             </div>
 
-            {(typedAnswerEffectType !== AnswerEffectType.SetQuestionEnabled) && (
+            {(typedAnswerEffectType !== AnswerEffectType.SetQuestionEnabled && typedAnswerEffectType !== AnswerEffectType.AddCounter) && (
                 <div>
                     <label>Affected Candidate: </label>
                     <select
@@ -110,7 +114,9 @@ function AnswerEffectEditor(props: AnswerEffectEditorProps) {
                         value={answerEffect.stateId}
                     >
                         {data.states.sort((a, b) => a.name.localeCompare(b.name)).map((state) => (
-                            <option value={state.id}>{state.name}</option>
+                            <option key={state.id} value={state.id}>
+                                {state.name}
+                            </option>
                         ))}
                     </select>
                 </div>
@@ -124,13 +130,46 @@ function AnswerEffectEditor(props: AnswerEffectEditorProps) {
                         value={answerEffect.issueId}
                     >
                         {data.issues.map((issue) => (
-                            <option value={issue.id}>{issue.name}</option>
+                            <option key={issue.id} value={issue.id}>
+                                {issue.name}
+                            </option>
                         ))}
                     </select>
                 </div>
             )}
 
-            {(typedAnswerEffectType !== AnswerEffectType.SetQuestionEnabled && typedAnswerEffectType !== AnswerEffectType.TctIssue) && (
+            {/* AddCounter Section - Using text input for counter name */}
+            {(typedAnswerEffectType === AnswerEffectType.AddCounter) && (
+                <div>
+                    <label>Counter Name: </label>
+                    <input
+                        type="text"
+                        value={answerEffect.counterName || ""}
+                        onChange={(e) => updateFieldAndUpdateData<string>("counterName", e.target.value)}
+                        placeholder="Enter counter name (e.g., BlackPantherApproval)"
+                        style={{ width: "100%", padding: "4px", boxSizing: "border-box" }}
+                    />
+                    <p className="EditorNote">
+                        The counter must be initialized in onScenarioStarted with engine.setCounter().
+                    </p>
+                </div>
+            )}
+
+            {(typedAnswerEffectType === AnswerEffectType.AddCounter) && (
+                <div>
+                    <GenericEditorInput
+                        label={"Amount to Add (+/-)"}
+                        type={"number"}
+                        defaultValue={answerEffect.counterAmount ?? 0}
+                        onChange={(e) => updateFieldAndUpdateData<number>("counterAmount", Number(e.target.value))}
+                    />
+                    <p className="EditorNote">
+                        Positive numbers add to the counter. Negative numbers subtract from it.
+                    </p>
+                </div>
+            )}
+
+            {(typedAnswerEffectType !== AnswerEffectType.SetQuestionEnabled && typedAnswerEffectType !== AnswerEffectType.TctIssue && typedAnswerEffectType !== AnswerEffectType.AddCounter) && (
                 <div>
                     <GenericEditorInput
                         label={"Amount"}
@@ -172,11 +211,19 @@ function AnswerEffectEditor(props: AnswerEffectEditorProps) {
                 <div>
                     <label>Question: </label>
                     <select
-                        onChange={(e) => updateFieldAndUpdateData<number>("questionId", Number(e.target.value))}
-                        value={answerEffect.questionId ?? data.scenarioSides[sideIndex].questions[0].id}
+                        onChange={(e) => {
+                            updateFieldAndUpdateData<number>("questionId", Number(e.target.value));
+                            if (answerEffect.questionEnabled === undefined) {
+                                updateFieldAndUpdateData<boolean>("questionEnabled", true);
+                            }
+                            if (answerEffect.amount === undefined || answerEffect.amount === 0) {
+                                updateFieldAndUpdateData<number>("amount", 1);
+                            }
+                        }}
+                        value={answerEffect.questionId ?? data.scenarioSides[sideIndex]?.questions[0]?.id ?? 0}
                     >
-                        {data.scenarioSides[sideIndex].questions.map((question, index) => (
-                            <option value={question.id}>
+                        {data.scenarioSides[sideIndex]?.questions.map((question, index) => (
+                            <option key={question.id} value={question.id}>
                                 {index + 1}. {question.description.slice(0, 30)}...
                             </option>
                         ))}
@@ -188,7 +235,11 @@ function AnswerEffectEditor(props: AnswerEffectEditorProps) {
                 <div>
                     <GenericEditorCheckbox
                         defaultValue={answerEffect.questionEnabled ?? true}
-                        onChange={(e) => updateFieldAndUpdateData<boolean>("questionEnabled", e.target.checked)}
+                        onChange={(e) => {
+                            const isEnabled = e.target.checked;
+                            updateFieldAndUpdateData<boolean>("questionEnabled", isEnabled);
+                            updateFieldAndUpdateData<number>("amount", isEnabled ? 1 : 0);
+                        }}
                         label={"Enabled"}
                     />
                 </div>
@@ -197,7 +248,7 @@ function AnswerEffectEditor(props: AnswerEffectEditorProps) {
             <button
                 title="Delete answer effect"
                 className="CircleButton RedButton"
-                onClick={deleteAnswerEffect}  // ← now protected with confirm
+                onClick={deleteAnswerEffect}
             >
                 X
             </button>
