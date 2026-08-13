@@ -299,7 +299,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     async function loadAndRender() {
       try {
         // 1. Fetch district data
-        const response = await fetch("/data/election2023.json");
+        const response = await fetch("/fuck/data/election2023.json");
         if (!response.ok) throw new Error("Failed to load district data");
         const electionData = await response.json();
 
