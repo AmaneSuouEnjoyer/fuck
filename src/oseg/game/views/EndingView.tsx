@@ -21,10 +21,10 @@ enum EndingTab {
   OverallResultsDetailed,
   Map,
   FurtherReading,
-  DetailedMap // <-- NEW
+  DetailedMap
 }
 
-// ======= NEW: DetailedMapView component =======
+// ======= DetailedMapView component =======
 function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel }) {
   const stateControllers = engine.scenarioController.stateControllers;
   const candidates = engine.scenarioController.getCandidates();
@@ -56,7 +56,6 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     </div>
   );
 }
-// =============================================
 
 function EndingView(props: EndingViewProps) {
   const [currentTab, setCurrentTab] = useState<EndingTab>(EndingTab.EndingSlides);
@@ -65,7 +64,6 @@ function EndingView(props: EndingViewProps) {
   const [finalResults, setFinalResults] = useState(() => engine.getFinalResults());
   const [historicalResults, setHistoricalResults] = useState(() => engine.getHistoricalResults());
 
-  // Update results when scenario changes
   useEffect(() => {
     const newFinalResults = engine.getFinalResults();
     setFinalResults(newFinalResults);
@@ -92,7 +90,7 @@ function EndingView(props: EndingViewProps) {
           onStateClicked={null}
           engine={engine}
           mapSvg={mapSvg}
-        ></MapView>
+        />
       );
     } else if (currentTab == EndingTab.OverallResultsDetailed) {
       return (
@@ -108,16 +106,13 @@ function EndingView(props: EndingViewProps) {
         </div> 
       );
     } else if (currentTab == EndingTab.ResultsByState) {
-      return <ResultsByState engine={engine} theme={theme}></ResultsByState>;
+      return <ResultsByState engine={engine} theme={theme} />;
     } else if (currentTab == EndingTab.FurtherReading) {
-      return <FurtherReading engine={engine} theme={theme}></FurtherReading>;
-    } else if (currentTab == EndingTab.DetailedMap) { // <-- NEW
+      return <FurtherReading engine={engine} theme={theme} />;
+    } else if (currentTab == EndingTab.DetailedMap) {
       return <DetailedMapView engine={engine} theme={theme} />;
     }
   }
-
-  // Check if this is the Turkish2023 scenario
-  const isTurkish2023 = engine.scenarioController?.model?.name === "Turkish2023";
 
   return (
     <div className="EndingView">
@@ -153,15 +148,13 @@ function EndingView(props: EndingViewProps) {
         >
           {engine.getLocalization("Overall Results Detailed")}
         </button>
-        {/* NEW: Detailed Map button – only for Turkish2023 */}
-        {isTurkish2023 && (
-          <button
-            disabled={currentTab == EndingTab.DetailedMap}
-            onClick={() => setCurrentTab(EndingTab.DetailedMap)}
-          >
-            Detailed Map
-          </button>
-        )}
+        {/* FIXED: Always show the Detailed Map button (you can conditionally hide later) */}
+        <button
+          disabled={currentTab == EndingTab.DetailedMap}
+          onClick={() => setCurrentTab(EndingTab.DetailedMap)}
+        >
+          Detailed Map
+        </button>
       </div>
     </div>
   );
