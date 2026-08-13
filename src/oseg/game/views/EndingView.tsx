@@ -134,29 +134,23 @@ Object.entries(cityNameMap).forEach(([plate, name]) => {
   cityNameToPlate[normalizeName(name)] = plate;
 });
 
-// Candidate name mapping (game full name → map short key)
+// Candidate name mapping (map short key → game full name)
 const MAP_KEY_TO_GAME_NAME: Record<string, string> = {
   rte: "Recep Tayyip Erdoğan",
   kk: "Kemal Kılıçdaroğlu",
   so: "Sinan Oğan",
   mi: "Muharrem İnce",
 };
-const GAME_NAME_TO_MAP_KEY: Record<string, string> = {
-  "Recep Tayyip Erdoğan": "rte",
-  "Kemal Kılıçdaroğlu": "kk",
-  "Sinan Oğan": "so",
-  "Muharrem İnce": "mi",
-};
 
-// Color scales (same as in the standalone HTML map)
+// Color scales (fix: specify types to avoid TS errors)
 const scales = {
-  rte: d3.scaleLinear().domain([40, 80]).range(["#fef08a", "#a16207"]),
-  kk: d3.scaleLinear().domain([40, 80]).range(["#fca5a5", "#991b1b"]),
-  so: d3.scaleLinear().domain([1, 20]).range(["#93c5fd", "#1d4ed8"]),
-  mi: d3.scaleLinear().domain([0.1, 5]).range(["#86efac", "#15803d"]),
+  rte: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fef08a", "#a16207"]),
+  kk: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fca5a5", "#991b1b"]),
+  so: d3.scaleLinear<string, string>().domain([1, 20]).range(["#93c5fd", "#1d4ed8"]),
+  mi: d3.scaleLinear<string, string>().domain([0.1, 5]).range(["#86efac", "#15803d"]),
 };
 
-// --- Scaling function (from the other AI) ---
+// --- Scaling function ---
 function applyProvinceResults(
   electionData: any,
   gameResults: Record<string, Record<string, number>>
@@ -173,7 +167,7 @@ function applyProvinceResults(
     }
 
     // Sum base totals for this province
-    const baseTotals = { rte: 0, kk: 0, so: 0, mi: 0 };
+    const baseTotals: Record<string, number> = { rte: 0, kk: 0, so: 0, mi: 0 };
     Object.entries(electionData).forEach(([key, d]: [string, any]) => {
       if (key.startsWith(plate + "-")) {
         candidates.forEach((c) => {
@@ -227,7 +221,7 @@ function applyProvinceResults(
 }
 
 // --- D3 render function ---
-function renderMap(container: HTMLDivElement, data: any, theme: ThemeModel) {
+function renderMap(container: HTMLDivElement, data: any) {
   // Clear previous content
   d3.select(container).selectAll("*").remove();
 
@@ -247,14 +241,15 @@ function renderMap(container: HTMLDivElement, data: any, theme: ThemeModel) {
     .scaleExtent([0.3, 20])
     .on("zoom", (event) => g.attr("transform", event.transform));
 
-  svg.call(zoom);
+  // Type fix: cast to any to bypass strict type check
+  (svg as any).call(zoom);
 
   // Load SVG
   d3.xml("/turkey-map.svg")
     .then((response) => {
       const importedSvg = response.documentElement;
       while (importedSvg.children.length > 0) {
-        g.node().appendChild(importedSvg.children[0]);
+        g.node()!.appendChild(importedSvg.children[0]);
       }
 
       // Color all districts
@@ -263,7 +258,7 @@ function renderMap(container: HTMLDivElement, data: any, theme: ThemeModel) {
         const idKey = group.attr("id") || "";
         const districtData = data[idKey];
         if (districtData && districtData.winner) {
-          const color = scales[districtData.winner](
+          const color = scales[districtData.winner as keyof typeof scales](
             districtData[districtData.winner].pct
           );
           group
@@ -277,7 +272,7 @@ function renderMap(container: HTMLDivElement, data: any, theme: ThemeModel) {
       });
 
       // Center and zoom
-      const bbox = g.node().getBBox();
+      const bbox = g.node()!.getBBox();
       if (bbox.width > 0 && bbox.height > 0) {
         const scale = Math.min(width / bbox.width, height / bbox.height) * 0.92;
         const centerX = width / 2 - (bbox.x + bbox.width / 2) * scale;
@@ -285,8 +280,8 @@ function renderMap(container: HTMLDivElement, data: any, theme: ThemeModel) {
         const initialTransform = d3.zoomIdentity
           .translate(centerX, centerY)
           .scale(scale);
-        g.attr("transform", initialTransform);
-        svg.call(zoom.transform, initialTransform);
+        g.attr("transform", initialTransform.toString());
+        (svg as any).call(zoom.transform, initialTransform);
       }
     })
     .catch((err) => {
@@ -329,7 +324,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
 
         // 4. Render D3 map
         if (containerRef.current) {
-          renderMap(containerRef.current, adjustedData, theme);
+          renderMap(containerRef.current, adjustedData);
         }
 
         setLoading(false);
@@ -341,7 +336,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     }
 
     loadAndRender();
-  }, [engine, theme]);
+  }, [engine]);
 
   if (loading)
     return (
