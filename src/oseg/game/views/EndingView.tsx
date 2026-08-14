@@ -159,7 +159,47 @@ const scales = {
   fe: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fdba74", "#c2410c"]),
 };
 
-// --- Scaling function ---
+// --- Aggregator: compute city (province) totals from district data ---
+function computeCityData(districtData: any) {
+  const cityTotals: Record<string, any> = {};
+  const candidates = ALL_CANDIDATES;
+
+  for (const [key, district] of Object.entries(districtData)) {
+    const plate = key.split('-')[0];
+    if (!cityTotals[plate]) {
+      cityTotals[plate] = {};
+      candidates.forEach(c => cityTotals[plate][c] = { votes: 0, pct: 0 });
+    }
+    candidates.forEach(c => {
+      const v = parseInt(district[c].votes.replace(/\./g, '')) || 0;
+      cityTotals[plate][c].votes += v;
+    });
+  }
+
+  // Recalculate percentages and winner per province
+  for (const [plate, totals] of Object.entries(cityTotals)) {
+    const total = candidates.reduce((sum, c) => sum + totals[c].votes, 0);
+    if (total > 0) {
+      candidates.forEach(c => {
+        totals[c].pct = ((totals[c].votes / total) * 100).toFixed(2);
+        totals[c].votes = totals[c].votes.toLocaleString('tr-TR');
+      });
+      let winner = candidates[0];
+      let maxPct = parseFloat(totals[winner].pct);
+      candidates.forEach(c => {
+        if (parseFloat(totals[c].pct) > maxPct) {
+          winner = c;
+          maxPct = parseFloat(totals[c].pct);
+        }
+      });
+      totals.winner = winner;
+    }
+  }
+
+  return cityTotals;
+}
+
+// --- Scaling function (unchanged) ---
 function applyProvinceResults(
   electionData: any,
   gameResults: Record<string, Record<string, number>>
@@ -229,11 +269,13 @@ function applyProvinceResults(
   return adjustedData;
 }
 
-// --- D3 render function ---
+// --- D3 render function (now accepts mode and cityData) ---
 function renderMap(
   container: HTMLDivElement,
-  data: any,
-  onHover: (districtName: string, districtData: any) => void
+  data: any,          // district-level data when mode='district', province-level when mode='city'
+  onHover: (name: string, districtData: any) => void,
+  mode: "district" | "city",
+  cityData?: any      // only used in city mode to get province names from plate
 ) {
   d3.select(container).selectAll("*").remove();
 
@@ -262,10 +304,22 @@ function renderMap(
         g.node()!.appendChild(importedSvg.children[0]);
       }
 
+      // Color all districts
       d3.selectAll("#features > g").each(function () {
         const group = d3.select(this);
         const idKey = normalizeName(group.attr("id") || "");
-        const districtData = data[idKey];
+        let districtData;
+        let name;
+
+        if (mode === "district") {
+          districtData = data[idKey];
+          name = group.attr("title") || idKey.replace(/^[0-9]+-/, "").replace(/-/g, " ");
+        } else {
+          // city mode: get plate from idKey (first two digits)
+          const plate = idKey.split('-')[0];
+          districtData = data[plate]; // data is cityData indexed by plate
+          name = cityNameMap[plate] || plate;
+        }
 
         if (districtData && districtData.winner) {
           const color = scales[districtData.winner as keyof typeof scales](
@@ -280,13 +334,7 @@ function renderMap(
           group.selectAll("path").style("fill", "#cbd5e1");
         }
 
-        let districtName = group.attr("title");
-        if (!districtName) {
-          const titleEl = group.select("title");
-          if (!titleEl.empty()) districtName = titleEl.text();
-        }
-        if (!districtName) districtName = idKey.replace(/^[0-9]+-/, "").replace(/-/g, " ");
-
+        // Hover events
         group
           .on("mouseover", function () {
             group.selectAll("path")
@@ -294,9 +342,9 @@ function renderMap(
               .style("stroke", "#0f172a")
               .style("stroke-width", "1.5px");
             if (districtData) {
-              onHover(districtName, districtData);
+              onHover(name, districtData);
             } else {
-              onHover(districtName, null);
+              onHover(name, null);
             }
           })
           .on("mouseout", function () {
@@ -325,17 +373,20 @@ function renderMap(
     });
 }
 
-// --- DetailedMapView component ---
+// --- DetailedMapView component (with mode toggle) ---
 function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [adjustedData, setAdjustedData] = useState<any>(null);
+  const [cityData, setCityData] = useState<any>(null);
+  const [mode, setMode] = useState<"district" | "city">("district");
   const [hoveredDistrict, setHoveredDistrict] = useState<{
     name: string;
     data: any;
   } | null>(null);
 
+  // Load data and scale it
   useEffect(() => {
     async function loadAndRender() {
       try {
@@ -359,7 +410,9 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
         });
 
         const adjusted = applyProvinceResults(electionData, gameResults);
+        const cityAgg = computeCityData(adjusted);
         setAdjustedData(adjusted);
+        setCityData(cityAgg);
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -371,17 +424,27 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     loadAndRender();
   }, [engine]);
 
+  // Render the map when data or mode changes
   useEffect(() => {
     if (!loading && !error && adjustedData && containerRef.current) {
       requestAnimationFrame(() => {
         if (containerRef.current) {
-          renderMap(containerRef.current, adjustedData, (name, data) => {
-            setHoveredDistrict(data ? { name, data } : null);
-          });
+          const dataToRender = mode === "district" ? adjustedData : cityData;
+          if (dataToRender) {
+            renderMap(
+              containerRef.current,
+              dataToRender,
+              (name, data) => {
+                setHoveredDistrict(data ? { name, data } : null);
+              },
+              mode,
+              cityData
+            );
+          }
         }
       });
     }
-  }, [loading, error, adjustedData]);
+  }, [loading, error, adjustedData, cityData, mode]);
 
   const candidateColors: Record<string, string> = {
     rte: "#eab308",
@@ -437,8 +500,44 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
         }}
       >
         <h2 style={{ fontSize: "1.2rem", fontWeight: 600, color: "#1e293b", borderBottom: "2px solid #3b82f6", paddingBottom: "8px", marginBottom: "15px" }}>
-          📍 District Info
+          📍 {mode === "district" ? "İlçe" : "İl"} Info
         </h2>
+
+        {/* Mode toggle buttons */}
+        <div style={{ display: "flex", background: "#e2e8f0", borderRadius: "8px", padding: "4px", marginBottom: "15px" }}>
+          <button
+            style={{
+              flex: 1,
+              padding: "8px 10px",
+              border: "none",
+              borderRadius: "6px",
+              background: mode === "district" ? "white" : "transparent",
+              fontWeight: 600,
+              cursor: "pointer",
+              color: mode === "district" ? "#0f172a" : "#64748b",
+              boxShadow: mode === "district" ? "0 1px 3px rgba(0,0,0,0.12)" : "none"
+            }}
+            onClick={() => setMode("district")}
+          >
+            İlçe Modu
+          </button>
+          <button
+            style={{
+              flex: 1,
+              padding: "8px 10px",
+              border: "none",
+              borderRadius: "6px",
+              background: mode === "city" ? "white" : "transparent",
+              fontWeight: 600,
+              cursor: "pointer",
+              color: mode === "city" ? "#0f172a" : "#64748b",
+              boxShadow: mode === "city" ? "0 1px 3px rgba(0,0,0,0.12)" : "none"
+            }}
+            onClick={() => setMode("city")}
+          >
+            İl Modu
+          </button>
+        </div>
 
         {hoveredDistrict ? (
           <>
@@ -488,7 +587,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
           </>
         ) : (
           <div style={{ color: "#94a3b8", fontSize: "1.2rem", marginTop: "20px" }}>
-            Hover over a district
+            {mode === "district" ? "Hover over a district" : "Hover over a province"}
           </div>
         )}
 
