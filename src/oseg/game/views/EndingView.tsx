@@ -293,7 +293,9 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [adjustedData, setAdjustedData] = useState<any>(null);
 
+  // Load data and scale it
   useEffect(() => {
     async function loadAndRender() {
       try {
@@ -316,13 +318,8 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
           gameResults[stateName] = votes;
         });
 
-        const adjustedData = applyProvinceResults(electionData, gameResults);
-
-        // Now the container ref is guaranteed to exist because we keep it mounted
-        if (containerRef.current) {
-          renderMap(containerRef.current, adjustedData);
-        }
-
+        const adjusted = applyProvinceResults(electionData, gameResults);
+        setAdjustedData(adjusted);
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -333,6 +330,18 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
 
     loadAndRender();
   }, [engine]);
+
+  // Render the map once loading is finished and the container is visible
+  useEffect(() => {
+    if (!loading && !error && adjustedData && containerRef.current) {
+      // Use requestAnimationFrame to ensure the container has been re-rendered with display:block
+      requestAnimationFrame(() => {
+        if (containerRef.current) {
+          renderMap(containerRef.current, adjustedData);
+        }
+      });
+    }
+  }, [loading, error, adjustedData]);
 
   return (
     <div style={{ position: "relative" }}>
@@ -353,8 +362,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
         }}
       />
     </div>
-  );
-}
+  );  
 
 // ============================================================
 // ENDING VIEW
