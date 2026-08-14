@@ -362,7 +362,8 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
         }}
       />
     </div>
-  );  
+  );
+}  
 
 // ============================================================
 // ENDING VIEW
