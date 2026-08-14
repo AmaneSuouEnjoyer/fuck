@@ -26,7 +26,7 @@ enum EndingTab {
 }
 
 // ============================================================
-// DETAILED MAP VIEW – loads district data, scales, renders D3 map
+// DETAILED MAP VIEW
 // ============================================================
 
 // Helper: normalize Turkish characters
@@ -43,7 +43,7 @@ function normalizeName(name: string): string {
     .trim();
 }
 
-// Province plate → name mapping (from election2023.json)
+// Province plate → name mapping
 const cityNameMap: Record<string, string> = {
   "01": "ADANA",
   "02": "ADIYAMAN",
@@ -128,26 +128,35 @@ const cityNameMap: Record<string, string> = {
   "81": "DÜZCE",
 };
 
-// Reverse mapping: normalized province name → plate
+// Reverse mapping
 const cityNameToPlate: Record<string, string> = {};
 Object.entries(cityNameMap).forEach(([plate, name]) => {
   cityNameToPlate[normalizeName(name)] = plate;
 });
 
-// Candidate name mapping (map short key → game full name)
+// Candidate name mapping (short key → game full name)
 const MAP_KEY_TO_GAME_NAME: Record<string, string> = {
   rte: "Recep Tayyip Erdoğan",
   kk: "Kemal Kılıçdaroğlu",
   so: "Sinan Oğan",
   mi: "Muharrem İnce",
+  my: "Mansur Yavaş",
+  sd: "Selahattin Demirtaş",
+  fe: "Fatih Erbakan",
 };
 
-// Color scales
+// All 7 candidates (order matters for sidebar)
+const ALL_CANDIDATES = ["rte", "kk", "so", "mi", "my", "sd", "fe"];
+
+// Color scales – ALL use domain [40, 80] for consistent intensity
 const scales = {
   rte: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fef08a", "#a16207"]),
   kk: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fca5a5", "#991b1b"]),
-  so: d3.scaleLinear<string, string>().domain([1, 20]).range(["#93c5fd", "#1d4ed8"]),
-  mi: d3.scaleLinear<string, string>().domain([0.1, 5]).range(["#86efac", "#15803d"]),
+  so: d3.scaleLinear<string, string>().domain([40, 80]).range(["#93c5fd", "#1d4ed8"]),
+  mi: d3.scaleLinear<string, string>().domain([40, 80]).range(["#86efac", "#15803d"]),
+  my: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fca5a5", "#991b1b"]), // Same as KK
+  sd: d3.scaleLinear<string, string>().domain([40, 80]).range(["#c084fc", "#7c3aed"]),
+  fe: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fdba74", "#c2410c"]),
 };
 
 // --- Scaling function ---
@@ -156,7 +165,6 @@ function applyProvinceResults(
   gameResults: Record<string, Record<string, number>>
 ) {
   const adjustedData = JSON.parse(JSON.stringify(electionData));
-  const candidates = ["rte", "kk", "so", "mi"];
 
   Object.entries(gameResults).forEach(([provinceName, gameVotes]) => {
     const normalizedProvince = normalizeName(provinceName);
@@ -167,10 +175,11 @@ function applyProvinceResults(
     }
 
     // Sum base totals for this province
-    const baseTotals: Record<string, number> = { rte: 0, kk: 0, so: 0, mi: 0 };
+    const baseTotals: Record<string, number> = {};
+    ALL_CANDIDATES.forEach((c) => { baseTotals[c] = 0; });
     Object.entries(electionData).forEach(([key, d]: [string, any]) => {
       if (key.startsWith(plate + "-")) {
-        candidates.forEach((c) => {
+        ALL_CANDIDATES.forEach((c) => {
           baseTotals[c] += parseInt(d[c].votes.replace(/\./g, "")) || 0;
         });
       }
@@ -178,7 +187,7 @@ function applyProvinceResults(
 
     // Compute scaling factors
     const factors: Record<string, number> = {};
-    candidates.forEach((c) => {
+    ALL_CANDIDATES.forEach((c) => {
       const gameVote = gameVotes[MAP_KEY_TO_GAME_NAME[c]] ?? 0;
       const baseVote = baseTotals[c];
       factors[c] = baseVote > 0 ? gameVote / baseVote : 0;
@@ -188,25 +197,25 @@ function applyProvinceResults(
     Object.keys(adjustedData).forEach((key) => {
       if (!key.startsWith(plate + "-")) return;
       const d = adjustedData[key];
-      candidates.forEach((c) => {
+      ALL_CANDIDATES.forEach((c) => {
         const baseVotes = parseInt(d[c].votes.replace(/\./g, "")) || 0;
         const scaled = Math.round(baseVotes * factors[c]);
         d[c].votes = scaled.toLocaleString("tr-TR");
       });
 
       // Recalculate percentages and winner (normalize to 100%)
-      const total = candidates.reduce(
+      const total = ALL_CANDIDATES.reduce(
         (sum, c) => sum + parseInt(d[c].votes.replace(/\./g, "")) || 0,
         0
       );
       if (total > 0) {
-        candidates.forEach((c) => {
+        ALL_CANDIDATES.forEach((c) => {
           const v = parseInt(d[c].votes.replace(/\./g, "")) || 0;
           d[c].pct = ((v / total) * 100).toFixed(2);
         });
-        let winner = "rte";
-        let maxPct = parseFloat(d.rte.pct);
-        ["kk", "so", "mi"].forEach((c) => {
+        let winner = ALL_CANDIDATES[0];
+        let maxPct = parseFloat(d[winner].pct);
+        ALL_CANDIDATES.forEach((c) => {
           if (parseFloat(d[c].pct) > maxPct) {
             winner = c;
             maxPct = parseFloat(d[c].pct);
@@ -220,7 +229,7 @@ function applyProvinceResults(
   return adjustedData;
 }
 
-// --- D3 render function (with hover callback) ---
+// --- D3 render function ---
 function renderMap(
   container: HTMLDivElement,
   data: any,
@@ -253,13 +262,11 @@ function renderMap(
         g.node()!.appendChild(importedSvg.children[0]);
       }
 
-      // Color all districts and attach hover events
       d3.selectAll("#features > g").each(function () {
         const group = d3.select(this);
         const idKey = normalizeName(group.attr("id") || "");
         const districtData = data[idKey];
 
-        // Color
         if (districtData && districtData.winner) {
           const color = scales[districtData.winner as keyof typeof scales](
             districtData[districtData.winner].pct
@@ -273,7 +280,6 @@ function renderMap(
           group.selectAll("path").style("fill", "#cbd5e1");
         }
 
-        // Get district name
         let districtName = group.attr("title");
         if (!districtName) {
           const titleEl = group.select("title");
@@ -281,7 +287,6 @@ function renderMap(
         }
         if (!districtName) districtName = idKey.replace(/^[0-9]+-/, "").replace(/-/g, " ");
 
-        // Hover events
         group
           .on("mouseover", function () {
             group.selectAll("path")
@@ -303,7 +308,6 @@ function renderMap(
           });
       });
 
-      // Center and zoom
       const bbox = g.node()!.getBBox();
       if (bbox.width > 0 && bbox.height > 0) {
         const scale = Math.min(width / bbox.width, height / bbox.height) * 0.92;
@@ -321,7 +325,7 @@ function renderMap(
     });
 }
 
-// --- DetailedMapView component (with sidebar) ---
+// --- DetailedMapView component ---
 function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
@@ -332,7 +336,6 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     data: any;
   } | null>(null);
 
-  // Load data and scale it
   useEffect(() => {
     async function loadAndRender() {
       try {
@@ -368,12 +371,10 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     loadAndRender();
   }, [engine]);
 
-  // Render the map once loading is finished
   useEffect(() => {
     if (!loading && !error && adjustedData && containerRef.current) {
       requestAnimationFrame(() => {
         if (containerRef.current) {
-          // Wrap the hover callback to match the expected signature
           renderMap(containerRef.current, adjustedData, (name, data) => {
             setHoveredDistrict(data ? { name, data } : null);
           });
@@ -387,6 +388,9 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     kk: "#ef4444",
     so: "#3b82f6",
     mi: "#22c55e",
+    my: "#ef4444",   // Same as KK
+    sd: "#8b5cf6",
+    fe: "#ea580c",
   };
 
   const candidateLabels: Record<string, string> = {
@@ -394,11 +398,13 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     kk: "KK",
     so: "S. Oğan",
     mi: "M. İnce",
+    my: "M. Yavaş",
+    sd: "S. Demirtaş",
+    fe: "F. Erbakan",
   };
 
   return (
     <div style={{ display: "flex", height: "80vh", gap: "0", background: "#e9ecf2" }}>
-      {/* Map container */}
       <div style={{ flex: 3, position: "relative" }}>
         {loading && (
           <div style={{ color: theme.primaryGameWindowTextColor, padding: "20px" }}>
@@ -418,7 +424,6 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
         />
       </div>
 
-      {/* Sidebar panel */}
       <div
         style={{
           flex: 1,
@@ -441,7 +446,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
               {hoveredDistrict.name}
             </div>
             <div style={{ marginTop: "15px", fontSize: "1rem", color: "#334155", lineHeight: "1.8" }}>
-              {["rte", "kk", "so", "mi"].map((key) => {
+              {ALL_CANDIDATES.map((key) => {
                 const data = hoveredDistrict.data[key];
                 if (!data) return null;
                 const isWinner = hoveredDistrict.data.winner === key;
