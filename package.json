@@ -11,6 +11,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "(npm run build) && (npx typedoc --entryPointStrategy Expand src/oseg/engine)",
+	"prebuild": "node scripts/write-version.js",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

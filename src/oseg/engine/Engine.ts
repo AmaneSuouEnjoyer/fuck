@@ -19,6 +19,25 @@ import { ThemeModel } from "./models/ThemeModel";
 /**
  * Controls which part of the game the player is in
  */
+ let BUILD_VERSION: string | null = null;
+
+async function getBuildVersion(): Promise<string> {
+  if (BUILD_VERSION !== null) return BUILD_VERSION;
+  try {
+    const res = await fetch('/fuck/version.json', { cache: 'no-store' });
+    const data = await res.json();
+    BUILD_VERSION = data.version;
+  } catch {
+    BUILD_VERSION = Date.now().toString();
+  }
+  return BUILD_VERSION;
+}
+
+function withCacheBuster(url: string): string {
+  const sep = url.includes('?') ? '&' : '?';
+  return `${url}${sep}v=${BUILD_VERSION}`;
+}
+ 
 enum GameState {
     Uninitialized,
     CandidateSelection,
@@ -1278,4 +1297,5 @@ class Engine {
     }
 }
 
+export { getBuildVersion, withCacheBuster };
 export { Engine, GameState };
