@@ -170,14 +170,16 @@ function computeCityData(districtData: any) {
       cityTotals[plate] = {};
       candidates.forEach(c => cityTotals[plate][c] = { votes: 0, pct: 0 });
     }
+    // district is any, but we know its structure
+    const d = district as any;
     candidates.forEach(c => {
-      const v = parseInt(district[c].votes.replace(/\./g, '')) || 0;
+      const v = parseInt(d[c].votes.replace(/\./g, '')) || 0;
       cityTotals[plate][c].votes += v;
     });
   }
 
   // Recalculate percentages and winner per province
-  for (const [plate, totals] of Object.entries(cityTotals)) {
+  for (const totals of Object.values(cityTotals)) {
     const total = candidates.reduce((sum, c) => sum + totals[c].votes, 0);
     if (total > 0) {
       candidates.forEach(c => {
@@ -269,13 +271,12 @@ function applyProvinceResults(
   return adjustedData;
 }
 
-// --- D3 render function (now accepts mode and cityData) ---
+// --- D3 render function (now only takes 4 args, cityData removed) ---
 function renderMap(
   container: HTMLDivElement,
   data: any,          // district-level data when mode='district', province-level when mode='city'
   onHover: (name: string, districtData: any) => void,
-  mode: "district" | "city",
-  cityData?: any      // only used in city mode to get province names from plate
+  mode: "district" | "city"
 ) {
   d3.select(container).selectAll("*").remove();
 
@@ -437,8 +438,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
               (name, data) => {
                 setHoveredDistrict(data ? { name, data } : null);
               },
-              mode,
-              cityData
+              mode
             );
           }
         }
