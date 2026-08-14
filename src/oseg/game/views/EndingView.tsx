@@ -220,7 +220,7 @@ function applyProvinceResults(
   return adjustedData;
 }
 
-// --- D3 render function ---
+// --- D3 render function (with hover callback) ---
 function renderMap(
   container: HTMLDivElement,
   data: any,
@@ -253,7 +253,7 @@ function renderMap(
         g.node()!.appendChild(importedSvg.children[0]);
       }
 
-      // Color and attach hover events
+      // Color all districts and attach hover events
       d3.selectAll("#features > g").each(function () {
         const group = d3.select(this);
         const idKey = normalizeName(group.attr("id") || "");
@@ -273,7 +273,7 @@ function renderMap(
           group.selectAll("path").style("fill", "#cbd5e1");
         }
 
-        // Get district name from title or id
+        // Get district name
         let districtName = group.attr("title");
         if (!districtName) {
           const titleEl = group.select("title");
@@ -284,7 +284,6 @@ function renderMap(
         // Hover events
         group
           .on("mouseover", function () {
-            // Highlight
             group.selectAll("path")
               .style("opacity", 0.8)
               .style("stroke", "#0f172a")
@@ -322,14 +321,12 @@ function renderMap(
     });
 }
 
-// --- DetailedMapView component (FIXED: container always mounted) ---
+// --- DetailedMapView component (with sidebar) ---
 function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [adjustedData, setAdjustedData] = useState<any>(null);
-
-  // State for hovered district info
   const [hoveredDistrict, setHoveredDistrict] = useState<{
     name: string;
     data: any;
@@ -376,7 +373,10 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     if (!loading && !error && adjustedData && containerRef.current) {
       requestAnimationFrame(() => {
         if (containerRef.current) {
-          renderMap(containerRef.current, adjustedData, setHoveredDistrict);
+          // Wrap the hover callback to match the expected signature
+          renderMap(containerRef.current, adjustedData, (name, data) => {
+            setHoveredDistrict(data ? { name, data } : null);
+          });
         }
       });
     }
@@ -493,7 +493,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
       </div>
     </div>
   );
-} 
+}
 
 // ============================================================
 // ENDING VIEW
