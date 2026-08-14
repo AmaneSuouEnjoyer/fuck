@@ -29,7 +29,7 @@ enum EndingTab {
 // DETAILED MAP VIEW
 // ============================================================
 
-// Helper: normalize Turkish characters
+// Helper: normalize Turkish characters AND collapse multiple spaces
 function normalizeName(name: string): string {
   return name
     .toLocaleLowerCase("tr")
@@ -40,6 +40,7 @@ function normalizeName(name: string): string {
     .replace(/ö/g, "o")
     .replace(/ş/g, "s")
     .replace(/ü/g, "u")
+    .replace(/\s+/g, " ")   // <-- FIX: collapses double/multiple spaces into one
     .trim();
 }
 
@@ -170,7 +171,6 @@ function computeCityData(districtData: any) {
       cityTotals[plate] = {};
       candidates.forEach(c => cityTotals[plate][c] = { votes: 0, pct: 0 });
     }
-    // district is any, but we know its structure
     const d = district as any;
     candidates.forEach(c => {
       const v = parseInt(d[c].votes.replace(/\./g, '')) || 0;
@@ -178,7 +178,6 @@ function computeCityData(districtData: any) {
     });
   }
 
-  // Recalculate percentages and winner per province
   for (const totals of Object.values(cityTotals)) {
     const total = candidates.reduce((sum, c) => sum + totals[c].votes, 0);
     if (total > 0) {
@@ -201,7 +200,7 @@ function computeCityData(districtData: any) {
   return cityTotals;
 }
 
-// --- Scaling function (unchanged) ---
+// --- Scaling function ---
 function applyProvinceResults(
   electionData: any,
   gameResults: Record<string, Record<string, number>>
@@ -243,7 +242,7 @@ function applyProvinceResults(
       factors[c] = baseVote > 0 ? gameVote / baseVote : 0;
     });
 
-    // Apply to each district (same as before) ...
+    // Apply to each district
     Object.keys(adjustedData).forEach((key) => {
       if (!key.startsWith(plate + "-")) return;
       const d = adjustedData[key];
@@ -253,7 +252,7 @@ function applyProvinceResults(
         d[c].votes = scaled.toLocaleString("tr-TR");
       });
 
-      // Recalculate percentages and winner (same as before) ...
+      // Recalculate percentages and winner (normalize to 100%)
       const total = ALL_CANDIDATES.reduce(
         (sum, c) => sum + parseInt(d[c].votes.replace(/\./g, "")) || 0,
         0
@@ -279,10 +278,10 @@ function applyProvinceResults(
   return adjustedData;
 }
 
-// --- D3 render function (now only takes 4 args, cityData removed) ---
+// --- D3 render function ---
 function renderMap(
   container: HTMLDivElement,
-  data: any,          // district-level data when mode='district', province-level when mode='city'
+  data: any,
   onHover: (name: string, districtData: any) => void,
   mode: "district" | "city"
 ) {
@@ -313,7 +312,6 @@ function renderMap(
         g.node()!.appendChild(importedSvg.children[0]);
       }
 
-      // Color all districts
       d3.selectAll("#features > g").each(function () {
         const group = d3.select(this);
         const idKey = normalizeName(group.attr("id") || "");
@@ -324,9 +322,8 @@ function renderMap(
           districtData = data[idKey];
           name = group.attr("title") || idKey.replace(/^[0-9]+-/, "").replace(/-/g, " ");
         } else {
-          // city mode: get plate from idKey (first two digits)
           const plate = idKey.split('-')[0];
-          districtData = data[plate]; // data is cityData indexed by plate
+          districtData = data[plate];
           name = cityNameMap[plate] || plate;
         }
 
@@ -343,7 +340,6 @@ function renderMap(
           group.selectAll("path").style("fill", "#cbd5e1");
         }
 
-        // Hover events
         group
           .on("mouseover", function () {
             group.selectAll("path")
@@ -382,7 +378,7 @@ function renderMap(
     });
 }
 
-// --- DetailedMapView component (with mode toggle) ---
+// --- DetailedMapView component ---
 function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
@@ -395,7 +391,6 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     data: any;
   } | null>(null);
 
-  // Load data and scale it
   useEffect(() => {
     async function loadAndRender() {
       try {
@@ -406,6 +401,9 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
         const gameResults: Record<string, Record<string, number>> = {};
         const stateControllers = engine.scenarioController.stateControllers;
         const candidates = engine.scenarioController.getCandidates();
+
+        // Debug: log candidate names from the game
+        console.log("Game candidate names:", candidates.map(c => c.model.firstName + " " + c.model.lastName));
 
         stateControllers.forEach((state) => {
           const stateName = state.model.name;
@@ -433,7 +431,6 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     loadAndRender();
   }, [engine]);
 
-  // Render the map when data or mode changes
   useEffect(() => {
     if (!loading && !error && adjustedData && containerRef.current) {
       requestAnimationFrame(() => {
@@ -459,7 +456,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     kk: "#ef4444",
     so: "#3b82f6",
     mi: "#22c55e",
-    my: "#ef4444",   // Same as KK
+    my: "#ef4444",
     sd: "#8b5cf6",
     fe: "#ea580c",
   };
@@ -511,7 +508,6 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
           📍 {mode === "district" ? "İlçe" : "İl"} Info
         </h2>
 
-        {/* Mode toggle buttons */}
         <div style={{ display: "flex", background: "#e2e8f0", borderRadius: "8px", padding: "4px", marginBottom: "15px" }}>
           <button
             style={{
