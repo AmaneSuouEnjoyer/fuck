@@ -221,8 +221,11 @@ function applyProvinceResults(
 }
 
 // --- D3 render function ---
-function renderMap(container: HTMLDivElement, data: any) {
-  // Clear previous content
+function renderMap(
+  container: HTMLDivElement,
+  data: any,
+  onHover: (districtName: string, districtData: any) => void
+) {
   d3.select(container).selectAll("*").remove();
 
   const width = container.clientWidth;
@@ -243,7 +246,6 @@ function renderMap(container: HTMLDivElement, data: any) {
 
   (svg as any).call(zoom);
 
-  // Load SVG
   d3.xml("/fuck/turkey-map.svg")
     .then((response) => {
       const importedSvg = response.documentElement;
@@ -251,11 +253,13 @@ function renderMap(container: HTMLDivElement, data: any) {
         g.node()!.appendChild(importedSvg.children[0]);
       }
 
-      // Color all districts
+      // Color and attach hover events
       d3.selectAll("#features > g").each(function () {
         const group = d3.select(this);
         const idKey = normalizeName(group.attr("id") || "");
         const districtData = data[idKey];
+
+        // Color
         if (districtData && districtData.winner) {
           const color = scales[districtData.winner as keyof typeof scales](
             districtData[districtData.winner].pct
@@ -268,6 +272,36 @@ function renderMap(container: HTMLDivElement, data: any) {
         } else {
           group.selectAll("path").style("fill", "#cbd5e1");
         }
+
+        // Get district name from title or id
+        let districtName = group.attr("title");
+        if (!districtName) {
+          const titleEl = group.select("title");
+          if (!titleEl.empty()) districtName = titleEl.text();
+        }
+        if (!districtName) districtName = idKey.replace(/^[0-9]+-/, "").replace(/-/g, " ");
+
+        // Hover events
+        group
+          .on("mouseover", function () {
+            // Highlight
+            group.selectAll("path")
+              .style("opacity", 0.8)
+              .style("stroke", "#0f172a")
+              .style("stroke-width", "1.5px");
+            if (districtData) {
+              onHover(districtName, districtData);
+            } else {
+              onHover(districtName, null);
+            }
+          })
+          .on("mouseout", function () {
+            group.selectAll("path")
+              .style("opacity", 1)
+              .style("stroke", "#ffffff")
+              .style("stroke-width", "0.5px");
+            onHover("", null);
+          });
       });
 
       // Center and zoom
@@ -294,6 +328,12 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [adjustedData, setAdjustedData] = useState<any>(null);
+
+  // State for hovered district info
+  const [hoveredDistrict, setHoveredDistrict] = useState<{
+    name: string;
+    data: any;
+  } | null>(null);
 
   // Load data and scale it
   useEffect(() => {
@@ -331,39 +371,129 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     loadAndRender();
   }, [engine]);
 
-  // Render the map once loading is finished and the container is visible
+  // Render the map once loading is finished
   useEffect(() => {
     if (!loading && !error && adjustedData && containerRef.current) {
-      // Use requestAnimationFrame to ensure the container has been re-rendered with display:block
       requestAnimationFrame(() => {
         if (containerRef.current) {
-          renderMap(containerRef.current, adjustedData);
+          renderMap(containerRef.current, adjustedData, setHoveredDistrict);
         }
       });
     }
   }, [loading, error, adjustedData]);
 
+  const candidateColors: Record<string, string> = {
+    rte: "#eab308",
+    kk: "#ef4444",
+    so: "#3b82f6",
+    mi: "#22c55e",
+  };
+
+  const candidateLabels: Record<string, string> = {
+    rte: "RTE",
+    kk: "KK",
+    so: "S. Oğan",
+    mi: "M. İnce",
+  };
+
   return (
-    <div style={{ position: "relative" }}>
-      {loading && (
-        <div style={{ color: theme.primaryGameWindowTextColor }}>
-          Loading detailed map...
-        </div>
-      )}
-      {error && <div style={{ color: "red" }}>{error}</div>}
+    <div style={{ display: "flex", height: "80vh", gap: "0", background: "#e9ecf2" }}>
+      {/* Map container */}
+      <div style={{ flex: 3, position: "relative" }}>
+        {loading && (
+          <div style={{ color: theme.primaryGameWindowTextColor, padding: "20px" }}>
+            Loading detailed map...
+          </div>
+        )}
+        {error && <div style={{ color: "red", padding: "20px" }}>{error}</div>}
+        <div
+          ref={containerRef}
+          style={{
+            width: "100%",
+            height: "100%",
+            background: "#e9ecf2",
+            position: "relative",
+            display: loading || error ? "none" : "block",
+          }}
+        />
+      </div>
+
+      {/* Sidebar panel */}
       <div
-        ref={containerRef}
         style={{
-          width: "100%",
-          height: "80vh",
-          background: "#e9ecf2",
-          position: "relative",
-          display: loading || error ? "none" : "block",
+          flex: 1,
+          minWidth: "250px",
+          background: "white",
+          borderLeft: "2px solid #d1d9e6",
+          padding: "20px",
+          display: "flex",
+          flexDirection: "column",
+          overflowY: "auto",
         }}
-      />
+      >
+        <h2 style={{ fontSize: "1.2rem", fontWeight: 600, color: "#1e293b", borderBottom: "2px solid #3b82f6", paddingBottom: "8px", marginBottom: "15px" }}>
+          📍 District Info
+        </h2>
+
+        {hoveredDistrict ? (
+          <>
+            <div style={{ fontSize: "2rem", fontWeight: 700, color: "#0f172a", wordBreak: "break-word", textTransform: "capitalize" }}>
+              {hoveredDistrict.name}
+            </div>
+            <div style={{ marginTop: "15px", fontSize: "1rem", color: "#334155", lineHeight: "1.8" }}>
+              {["rte", "kk", "so", "mi"].map((key) => {
+                const data = hoveredDistrict.data[key];
+                if (!data) return null;
+                const isWinner = hoveredDistrict.data.winner === key;
+                return (
+                  <div
+                    key={key}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      padding: "6px 10px",
+                      marginBottom: "6px",
+                      borderRadius: "6px",
+                      background: "#f8fafc",
+                      fontWeight: isWinner ? "bold" : "normal",
+                      border: isWinner ? "1px solid #cbd5e1" : "none",
+                    }}
+                  >
+                    <span>
+                      <span
+                        style={{
+                          display: "inline-block",
+                          width: "10px",
+                          height: "10px",
+                          borderRadius: "50%",
+                          background: candidateColors[key],
+                          marginRight: "6px",
+                        }}
+                      />
+                      <strong>{candidateLabels[key]}</strong>
+                    </span>
+                    <span>
+                      %{data.pct} ({data.votes} Oy)
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        ) : (
+          <div style={{ color: "#94a3b8", fontSize: "1.2rem", marginTop: "20px" }}>
+            Hover over a district
+          </div>
+        )}
+
+        <div style={{ marginTop: "auto", paddingTop: "20px", borderTop: "1px solid #e2e8f0", color: "#64748b", fontSize: "0.85rem" }}>
+          <p>🖱️ Scroll to zoom · Drag to pan</p>
+        </div>
+      </div>
     </div>
   );
-}  
+} 
 
 // ============================================================
 // ENDING VIEW
