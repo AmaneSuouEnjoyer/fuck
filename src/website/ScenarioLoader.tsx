@@ -15,16 +15,19 @@ function ScenarioLoader() {
     const [dataString, setDataString] = useState<string>("");
     const [loadingCustomScenario, setLoadingCustomScenario] = useState(false);
     const [scenarios, setScenarios] = useState<Map<string, ScenarioModel>>(new Map());
-  
+
     useEffect(() => {
         async function loadScenarios() {
             const newScenarios = new Map<string, ScenarioModel>();
-            for(const scenarioName of scenarioNames) {
+            for (const scenarioName of scenarioNames) {
                 try {
-                    const modelRes = await fetch("./scenarios/" + scenarioName + "/data.json");
-                    const model : ScenarioModel = await modelRes.json();
+                    // Add cache‑buster to demo scenario data fetch
+                    const modelRes = await fetch(`./scenarios/${scenarioName}/data.json?v=${Date.now()}`, {
+                        cache: 'no-store'
+                    });
+                    const model: ScenarioModel = await modelRes.json();
                     newScenarios.set(scenarioName, model);
-                } catch(e) {
+                } catch (e) {
                     console.error("Failed to load scenario: " + scenarioName, e);
                 }
             }
@@ -34,29 +37,38 @@ function ScenarioLoader() {
     }, []);
 
     useEffect(() => {
-        if(currentModName == "") {
+        if (currentModName == "") {
             return;
         }
 
-        async function loadScenarioFromUrl(modFolderName : string) {
+        async function loadScenarioFromUrl(modFolderName: string) {
             try {
-                const dataRes = await fetch("./scenarios/" + modFolderName + "/data.json");
+                // Add cache‑buster to all scenario asset fetches
+                const dataRes = await fetch(`./scenarios/${modFolderName}/data.json?v=${Date.now()}`, {
+                    cache: 'no-store'
+                });
                 const dataJson = await dataRes.json();
 
-                const mapRes = await fetch("./scenarios/" + modFolderName + "/map.svg");
+                const mapRes = await fetch(`./scenarios/${modFolderName}/map.svg?v=${Date.now()}`, {
+                    cache: 'no-store'
+                });
                 const map: string = await mapRes.text();
-              
-                const logicRes = await fetch("./scenarios/" + modFolderName + "/logic.js");
+
+                const logicRes = await fetch(`./scenarios/${modFolderName}/logic.js?v=${Date.now()}`, {
+                    cache: 'no-store'
+                });
                 const logicText = await logicRes.text();
 
-                const cssRes = await fetch("./scenarios/" + modFolderName + "/style.css");
+                const cssRes = await fetch(`./scenarios/${modFolderName}/style.css?v=${Date.now()}`, {
+                    cache: 'no-store'
+                });
                 const cssText = await cssRes.text();
-                
+
                 setData(dataJson);
                 setLogic(logicText);
                 setMapSvg(map);
                 setCustomCss(cssText);
-            } catch(e) {
+            } catch (e) {
                 console.error("Failed to load scenario files", e);
             }
         }
@@ -71,23 +83,20 @@ function ScenarioLoader() {
             setMapSvg(mapSvg);
             setCustomCss(customCss);
             setLoadingCustomScenario(true);
-        }
-        catch(e) {
+        } catch (e) {
             alert("Error: " + e);
         }
     }
 
-    if(currentModName == "" && !loadingCustomScenario) {
+    if (currentModName == "" && !loadingCustomScenario) {
         return (
             <div>
                 <h2>Try OSEG, Pick a Demo Scenario</h2>
                 <div className="ScenarioBoxHolder">
-                {
-                    Array.from(scenarios).map(([scenarioName, model]) => {
+                    {Array.from(scenarios).map(([scenarioName, model]) => {
                         return <ScenarioBox key={scenarioName} model={model} onClickPlay={() => setCurrentModName(scenarioName)}></ScenarioBox>
-                    })
-                }
-                 </div>
+                    })}
+                </div>
 
                 <h2>Or Paste a Custom Scenario</h2>
 
@@ -96,7 +105,7 @@ function ScenarioLoader() {
                     <textarea rows={8} onChange={(e) => setDataString(e.target.value)} value={dataString} id="data"></textarea>
 
                     <label htmlFor="logic">logic.js</label>
-                    <textarea rows={8}  onChange={(e) => setLogic(e.target.value)} value={logic} id="logic"></textarea>
+                    <textarea rows={8} onChange={(e) => setLogic(e.target.value)} value={logic} id="logic"></textarea>
 
                     <label htmlFor="map">map.svg</label>
                     <textarea rows={8} onChange={(e) => setMapSvg(e.target.value)} value={mapSvg} id="map"></textarea>
@@ -110,7 +119,7 @@ function ScenarioLoader() {
         )
     }
 
-    if(data == null) {
+    if (data == null) {
         return <p>Error: Loading scenario...</p>
     }
 
