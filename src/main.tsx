@@ -1,3 +1,29 @@
+// Save original fetch
+const originalFetch = window.fetch;
+
+// Override fetch to add cache‑buster to scenario data requests
+window.fetch = function(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+  let url = typeof input === 'string' ? input : input.url;
+  
+  // Only modify requests for data.json inside scenarios
+  if (url.includes('/scenarios/') && url.includes('data.json')) {
+    const separator = url.includes('?') ? '&' : '?';
+    const timestamp = Date.now(); // or use BUILD_VERSION if you've loaded it
+    url = `${url}${separator}v=${timestamp}`;
+    // Replace the input if it's a string
+    if (typeof input === 'string') {
+      input = url;
+    } else if (input instanceof Request) {
+      // Create a new Request with the updated URL
+      input = new Request(url, input);
+    } else if (input instanceof URL) {
+      input = new URL(url);
+    }
+  }
+  
+  return originalFetch.call(this, input as any, init);
+};
+
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import OsegEditor from "./editor/OsegEditor";
