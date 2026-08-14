@@ -19,10 +19,10 @@ import { ThemeModel } from "./models/ThemeModel";
 /**
  * Controls which part of the game the player is in
  */
- let BUILD_VERSION: string | null = null;
+ let BUILD_VERSION: string = '';
 
 async function getBuildVersion(): Promise<string> {
-  if (BUILD_VERSION !== null) return BUILD_VERSION;
+  if (BUILD_VERSION !== '') return BUILD_VERSION;
   try {
     const res = await fetch('/fuck/version.json', { cache: 'no-store' });
     const data = await res.json();
