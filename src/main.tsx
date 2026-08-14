@@ -1,36 +1,23 @@
-// Save original fetch
 const originalFetch = window.fetch;
 
-// Override fetch to add cache‑buster to scenario data requests
-window.fetch = function(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+window.fetch = function (input: RequestInfo | URL, init?: RequestInit) {
   let url: string;
+
   if (typeof input === 'string') {
     url = input;
-  } else if (input instanceof Request) {
-    url = input.url;
   } else if (input instanceof URL) {
-    url = input.href;
+    url = input.toString();
   } else {
-    url = String(input);
+    url = input.url; // Request object
   }
 
-  // Only modify requests for data.json inside scenarios
-  if (url.includes('/scenarios/') && url.includes('data.json')) {
-    const separator = url.includes('?') ? '&' : '?';
-    const timestamp = Date.now();
-    url = `${url}${separator}v=${timestamp}`;
-
-    // Update the input to the new URL
-    if (typeof input === 'string') {
-      input = url;
-    } else if (input instanceof Request) {
-      input = new Request(url, input);
-    } else if (input instanceof URL) {
-      input = new URL(url);
-    }
+  if (url.includes('data.json') || url.includes('logic.js')) {
+    const sep = url.includes('?') ? '&' : '?';
+    const bustedUrl = `${url}${sep}v=${BUILD_VERSION}`;
+    return originalFetch(bustedUrl, { ...init, cache: 'no-store' });
   }
 
-  return originalFetch.call(this, input as any, init);
+  return originalFetch(input, init);
 };
 
 import { StrictMode } from 'react';
