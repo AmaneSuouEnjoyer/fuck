@@ -13,7 +13,7 @@ window.fetch = function (input: RequestInfo | URL, init?: RequestInit) {
 
   if (url.includes('data.json') || url.includes('logic.js')) {
     const sep = url.includes('?') ? '&' : '?';
-    const bustedUrl = `${url}${sep}v=${BUILD_VERSION}`;
+    const bustedUrl = `${url}${sep}v=${Date.now()}`;
     return originalFetch(bustedUrl, { ...init, cache: 'no-store' });
   }
 
