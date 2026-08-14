@@ -216,6 +216,12 @@ function applyProvinceResults(
       return;
     }
 
+    // Normalize gameVotes keys so we can match regardless of spacing/diacritics
+    const normalizedGameVotes: Record<string, number> = {};
+    for (const [gameName, votes] of Object.entries(gameVotes)) {
+      normalizedGameVotes[normalizeName(gameName)] = votes;
+    }
+
     // Sum base totals for this province
     const baseTotals: Record<string, number> = {};
     ALL_CANDIDATES.forEach((c) => { baseTotals[c] = 0; });
@@ -227,15 +233,17 @@ function applyProvinceResults(
       }
     });
 
-    // Compute scaling factors
+    // Compute scaling factors using normalized lookup
     const factors: Record<string, number> = {};
     ALL_CANDIDATES.forEach((c) => {
-      const gameVote = gameVotes[MAP_KEY_TO_GAME_NAME[c]] ?? 0;
+      const expectedName = MAP_KEY_TO_GAME_NAME[c];
+      const normalizedExpected = normalizeName(expectedName);
+      const gameVote = normalizedGameVotes[normalizedExpected] ?? 0;
       const baseVote = baseTotals[c];
       factors[c] = baseVote > 0 ? gameVote / baseVote : 0;
     });
 
-    // Apply to each district
+    // Apply to each district (same as before) ...
     Object.keys(adjustedData).forEach((key) => {
       if (!key.startsWith(plate + "-")) return;
       const d = adjustedData[key];
@@ -245,7 +253,7 @@ function applyProvinceResults(
         d[c].votes = scaled.toLocaleString("tr-TR");
       });
 
-      // Recalculate percentages and winner (normalize to 100%)
+      // Recalculate percentages and winner (same as before) ...
       const total = ALL_CANDIDATES.reduce(
         (sum, c) => sum + parseInt(d[c].votes.replace(/\./g, "")) || 0,
         0
