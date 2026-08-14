@@ -142,7 +142,7 @@ const MAP_KEY_TO_GAME_NAME: Record<string, string> = {
   mi: "Muharrem İnce",
 };
 
-// Color scales (fix: specify types to avoid TS errors)
+// Color scales
 const scales = {
   rte: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fef08a", "#a16207"]),
   kk: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fca5a5", "#991b1b"]),
@@ -241,11 +241,10 @@ function renderMap(container: HTMLDivElement, data: any) {
     .scaleExtent([0.3, 20])
     .on("zoom", (event) => g.attr("transform", event.transform));
 
-  // Type fix: cast to any to bypass strict type check
   (svg as any).call(zoom);
 
   // Load SVG
-  d3.xml("/turkey-map.svg")
+  d3.xml("/fuck/turkey-map.svg")
     .then((response) => {
       const importedSvg = response.documentElement;
       while (importedSvg.children.length > 0) {
@@ -255,7 +254,7 @@ function renderMap(container: HTMLDivElement, data: any) {
       // Color all districts
       d3.selectAll("#features > g").each(function () {
         const group = d3.select(this);
-        const idKey = group.attr("id") || "";
+        const idKey = normalizeName(group.attr("id") || "");
         const districtData = data[idKey];
         if (districtData && districtData.winner) {
           const color = scales[districtData.winner as keyof typeof scales](
@@ -289,7 +288,7 @@ function renderMap(container: HTMLDivElement, data: any) {
     });
 }
 
-// --- DetailedMapView component ---
+// --- DetailedMapView component (FIXED: container always mounted) ---
 function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
@@ -298,12 +297,10 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
   useEffect(() => {
     async function loadAndRender() {
       try {
-        // 1. Fetch district data
         const response = await fetch("/fuck/data/election2023.json");
         if (!response.ok) throw new Error("Failed to load district data");
         const electionData = await response.json();
 
-        // 2. Extract game province results
         const gameResults: Record<string, Record<string, number>> = {};
         const stateControllers = engine.scenarioController.stateControllers;
         const candidates = engine.scenarioController.getCandidates();
@@ -319,10 +316,9 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
           gameResults[stateName] = votes;
         });
 
-        // 3. Apply scaling
         const adjustedData = applyProvinceResults(electionData, gameResults);
 
-        // 4. Render D3 map
+        // Now the container ref is guaranteed to exist because we keep it mounted
         if (containerRef.current) {
           renderMap(containerRef.current, adjustedData);
         }
@@ -338,24 +334,25 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     loadAndRender();
   }, [engine]);
 
-  if (loading)
-    return (
-      <div style={{ color: theme.primaryGameWindowTextColor }}>
-        Loading detailed map...
-      </div>
-    );
-  if (error) return <div style={{ color: "red" }}>{error}</div>;
-
   return (
-    <div
-      ref={containerRef}
-      style={{
-        width: "100%",
-        height: "80vh",
-        background: "#e9ecf2",
-        position: "relative",
-      }}
-    />
+    <div style={{ position: "relative" }}>
+      {loading && (
+        <div style={{ color: theme.primaryGameWindowTextColor }}>
+          Loading detailed map...
+        </div>
+      )}
+      {error && <div style={{ color: "red" }}>{error}</div>}
+      <div
+        ref={containerRef}
+        style={{
+          width: "100%",
+          height: "80vh",
+          background: "#e9ecf2",
+          position: "relative",
+          display: loading || error ? "none" : "block",
+        }}
+      />
+    </div>
   );
 }
 
