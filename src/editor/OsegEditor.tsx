@@ -68,6 +68,7 @@ const templateNames = [
     "TCT 2016",
     "Blank",
 	"Turkish2023"
+	"1964 Colonel"
 ];
 
 function OsegEditor() {

@@ -4,7 +4,7 @@ import Game from "../oseg/game/Game";
 import ScenarioBox from "./ScenarioBox";
 import "./ScenarioLoader.css";
 
-const scenarioNames = ["1980 For Common Sense", "1964 The Beatles", "1960m", "The Goat"];
+const scenarioNames = ["1980 For Common Sense", "1964 The Beatles", "1960m", "The Goat", "1964 Colonel"];
 
 function ScenarioLoader() {
     const [currentModName, setCurrentModName] = useState("The Goat");
