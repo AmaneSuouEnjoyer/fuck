@@ -673,6 +673,8 @@ function EndingView(props: EndingViewProps) {
     }
   }
 
+  const scenarioName = engine.scenarioController?.model?.scenarioName || "";
+
   return (
     <div className="EndingView">
       {getTab()}
@@ -707,12 +709,15 @@ function EndingView(props: EndingViewProps) {
         >
           {engine.getLocalization("Overall Results Detailed")}
         </button>
-        <button
-          disabled={currentTab == EndingTab.DetailedMap}
-          onClick={() => setCurrentTab(EndingTab.DetailedMap)}
-        >
-          Detailed Map
-        </button>
+        {/* Only show Detailed Map for The Goat or Turkish2023 */}
+        {(scenarioName === "The Goat" || scenarioName === "Turkish2023") && (
+          <button
+            disabled={currentTab == EndingTab.DetailedMap}
+            onClick={() => setCurrentTab(EndingTab.DetailedMap)}
+          >
+            Detailed Map
+          </button>
+        )}
       </div>
     </div>
   );
