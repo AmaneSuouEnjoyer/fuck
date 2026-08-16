@@ -67,7 +67,7 @@ const templateNames = [
     "TCT 2000",
     "TCT 2016",
     "Blank",
-	"Turkish2023"
+	"Turkish2023",
 	"1964 Colonel"
 ];
 

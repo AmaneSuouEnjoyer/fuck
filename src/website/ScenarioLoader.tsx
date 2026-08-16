@@ -7,7 +7,7 @@ import "./ScenarioLoader.css";
 const scenarioNames = ["1980 For Common Sense", "1964 The Beatles", "1960m", "The Goat", "1964 Colonel"];
 
 function ScenarioLoader() {
-    const [currentModName, setCurrentModName] = useState("The Goat");
+    const [currentModName, setCurrentModName] = useState("");
     const [data, setData] = useState<ScenarioModel | null>(null);
     const [logic, setLogic] = useState<string>("");
     const [mapSvg, setMapSvg] = useState<string>("");
