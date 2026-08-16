@@ -26,10 +26,8 @@ enum EndingTab {
 }
 
 // ============================================================
-// DETAILED MAP VIEW
+// HELPER: normalize Turkish characters AND collapse multiple spaces
 // ============================================================
-
-// Helper: normalize Turkish characters AND collapse multiple spaces
 function normalizeName(name: string): string {
   return name
     .toLocaleLowerCase("tr")
@@ -40,130 +38,186 @@ function normalizeName(name: string): string {
     .replace(/ö/g, "o")
     .replace(/ş/g, "s")
     .replace(/ü/g, "u")
-    .replace(/\s+/g, " ")   // <-- FIX: collapses double/multiple spaces into one
+    .replace(/\s+/g, " ")
     .trim();
 }
 
-// Province plate → name mapping
-const cityNameMap: Record<string, string> = {
-  "01": "ADANA",
-  "02": "ADIYAMAN",
-  "03": "AFYONKARAHİSAR",
-  "04": "AĞRI",
-  "05": "AMASYA",
-  "06": "ANKARA",
-  "07": "ANTALYA",
-  "08": "ARTVİN",
-  "09": "AYDIN",
-  "10": "BALIKESİR",
-  "11": "BİLECİK",
-  "12": "BİNGÖL",
-  "13": "BİTLİS",
-  "14": "BOLU",
-  "15": "BURDUR",
-  "16": "BURSA",
-  "17": "ÇANAKKALE",
-  "18": "ÇANKIRI",
-  "19": "ÇORUM",
-  "20": "DENİZLİ",
-  "21": "DİYARBAKIR",
-  "22": "EDİRNE",
-  "23": "ELAZIĞ",
-  "24": "ERZİNCAN",
-  "25": "ERZURUM",
-  "26": "ESKİŞEHİR",
-  "27": "GAZİANTEP",
-  "28": "GİRESUN",
-  "29": "GÜMÜŞHANE",
-  "30": "HAKKARİ",
-  "31": "HATAY",
-  "32": "ISPARTA",
-  "33": "MERSİN",
-  "34": "İSTANBUL",
-  "35": "İZMİR",
-  "36": "KARS",
-  "37": "KASTAMONU",
-  "38": "KAYSERİ",
-  "39": "KIRKLARELİ",
-  "40": "KIRŞEHİR",
-  "41": "KOCAELİ",
-  "42": "KONYA",
-  "43": "KÜTAHYA",
-  "44": "MALATYA",
-  "45": "MANİSA",
-  "46": "KAHRAMANMARAŞ",
-  "47": "MARDİN",
-  "48": "MUĞLA",
-  "49": "MUŞ",
-  "50": "NEVŞEHİR",
-  "51": "NİĞDE",
-  "52": "ORDU",
-  "53": "RİZE",
-  "54": "SAKARYA",
-  "55": "SAMSUN",
-  "56": "SİİRT",
-  "57": "SİNOP",
-  "58": "SİVAS",
-  "59": "TEKİRDAĞ",
-  "60": "TOKAT",
-  "61": "TRABZON",
-  "62": "TUNCELİ",
-  "63": "ŞANLIURFA",
-  "64": "UŞAK",
-  "65": "VAN",
-  "66": "YOZGAT",
-  "67": "ZONGULDAK",
-  "68": "AKSARAY",
-  "69": "BAYBURT",
-  "70": "KARAMAN",
-  "71": "KIRIKKALE",
-  "72": "BATMAN",
-  "73": "ŞIRNAK",
-  "74": "BARTIN",
-  "75": "ARDAHAN",
-  "76": "IĞDIR",
-  "77": "YALOVA",
-  "78": "KARABÜK",
-  "79": "KİLİS",
-  "80": "OSMANİYE",
-  "81": "DÜZCE",
-};
+// ============================================================
+// CONFIGURATIONS FOR EACH MAP TYPE
+// ============================================================
 
-// Reverse mapping
-const cityNameToPlate: Record<string, string> = {};
-Object.entries(cityNameMap).forEach(([plate, name]) => {
-  cityNameToPlate[normalizeName(name)] = plate;
-});
+// --- Turkey config ---
+function getTurkeyConfig() {
+  const cityNameMap: Record<string, string> = {
+    "01": "ADANA",
+    "02": "ADIYAMAN",
+    "03": "AFYONKARAHİSAR",
+    "04": "AĞRI",
+    "05": "AMASYA",
+    "06": "ANKARA",
+    "07": "ANTALYA",
+    "08": "ARTVİN",
+    "09": "AYDIN",
+    "10": "BALIKESİR",
+    "11": "BİLECİK",
+    "12": "BİNGÖL",
+    "13": "BİTLİS",
+    "14": "BOLU",
+    "15": "BURDUR",
+    "16": "BURSA",
+    "17": "ÇANAKKALE",
+    "18": "ÇANKIRI",
+    "19": "ÇORUM",
+    "20": "DENİZLİ",
+    "21": "DİYARBAKIR",
+    "22": "EDİRNE",
+    "23": "ELAZIĞ",
+    "24": "ERZİNCAN",
+    "25": "ERZURUM",
+    "26": "ESKİŞEHİR",
+    "27": "GAZİANTEP",
+    "28": "GİRESUN",
+    "29": "GÜMÜŞHANE",
+    "30": "HAKKARİ",
+    "31": "HATAY",
+    "32": "ISPARTA",
+    "33": "MERSİN",
+    "34": "İSTANBUL",
+    "35": "İZMİR",
+    "36": "KARS",
+    "37": "KASTAMONU",
+    "38": "KAYSERİ",
+    "39": "KIRKLARELİ",
+    "40": "KIRŞEHİR",
+    "41": "KOCAELİ",
+    "42": "KONYA",
+    "43": "KÜTAHYA",
+    "44": "MALATYA",
+    "45": "MANİSA",
+    "46": "KAHRAMANMARAŞ",
+    "47": "MARDİN",
+    "48": "MUĞLA",
+    "49": "MUŞ",
+    "50": "NEVŞEHİR",
+    "51": "NİĞDE",
+    "52": "ORDU",
+    "53": "RİZE",
+    "54": "SAKARYA",
+    "55": "SAMSUN",
+    "56": "SİİRT",
+    "57": "SİNOP",
+    "58": "SİVAS",
+    "59": "TEKİRDAĞ",
+    "60": "TOKAT",
+    "61": "TRABZON",
+    "62": "TUNCELİ",
+    "63": "ŞANLIURFA",
+    "64": "UŞAK",
+    "65": "VAN",
+    "66": "YOZGAT",
+    "67": "ZONGULDAK",
+    "68": "AKSARAY",
+    "69": "BAYBURT",
+    "70": "KARAMAN",
+    "71": "KIRIKKALE",
+    "72": "BATMAN",
+    "73": "ŞIRNAK",
+    "74": "BARTIN",
+    "75": "ARDAHAN",
+    "76": "IĞDIR",
+    "77": "YALOVA",
+    "78": "KARABÜK",
+    "79": "KİLİS",
+    "80": "OSMANİYE",
+    "81": "DÜZCE",
+  };
 
-// Candidate name mapping (short key → game full name)
-const MAP_KEY_TO_GAME_NAME: Record<string, string> = {
-  rte: "Recep Tayyip Erdoğan",
-  kk: "Kemal Kılıçdaroğlu",
-  so: "Sinan Oğan",
-  mi: "Muharrem İnce",
-  my: "Mansur Yavaş",
-  sd: "Selahattin Demirtaş",
-  fe: "Fatih Erbakan",
-};
+  const cityNameToPlate: Record<string, string> = {};
+  Object.entries(cityNameMap).forEach(([plate, name]) => {
+    cityNameToPlate[normalizeName(name)] = plate;
+  });
 
-// All 7 candidates (order matters for sidebar)
-const ALL_CANDIDATES = ["rte", "kk", "so", "mi", "my", "sd", "fe"];
+  const candidates = ["rte", "kk", "so", "mi", "my", "sd", "fe"];
+  const nameMapping: Record<string, string> = {
+    rte: "Recep Tayyip Erdoğan",
+    kk: "Kemal Kılıçdaroğlu",
+    so: "Sinan Oğan",
+    mi: "Muharrem İnce",
+    my: "Mansur Yavaş",
+    sd: "Selahattin Demirtaş",
+    fe: "Fatih Erbakan",
+  };
+  const scales = {
+    rte: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fef08a", "#a16207"]),
+    kk: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fca5a5", "#991b1b"]),
+    so: d3.scaleLinear<string, string>().domain([40, 80]).range(["#93c5fd", "#1d4ed8"]),
+    mi: d3.scaleLinear<string, string>().domain([40, 80]).range(["#86efac", "#15803d"]),
+    my: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fca5a5", "#991b1b"]),
+    sd: d3.scaleLinear<string, string>().domain([40, 80]).range(["#c084fc", "#7c3aed"]),
+    fe: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fdba74", "#c2410c"]),
+  };
+  const labels: Record<string, string> = {
+    rte: "RTE",
+    kk: "KK",
+    so: "S. Oğan",
+    mi: "M. İnce",
+    my: "M. Yavaş",
+    sd: "S. Demirtaş",
+    fe: "F. Erbakan",
+  };
+  const colors: Record<string, string> = {
+    rte: "#eab308",
+    kk: "#ef4444",
+    so: "#3b82f6",
+    mi: "#22c55e",
+    my: "#ef4444",
+    sd: "#8b5cf6",
+    fe: "#ea580c",
+  };
 
-// Color scales – ALL use domain [40, 80] for consistent intensity
-const scales = {
-  rte: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fef08a", "#a16207"]),
-  kk: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fca5a5", "#991b1b"]),
-  so: d3.scaleLinear<string, string>().domain([40, 80]).range(["#93c5fd", "#1d4ed8"]),
-  mi: d3.scaleLinear<string, string>().domain([40, 80]).range(["#86efac", "#15803d"]),
-  my: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fca5a5", "#991b1b"]), // Same as KK
-  sd: d3.scaleLinear<string, string>().domain([40, 80]).range(["#c084fc", "#7c3aed"]),
-  fe: d3.scaleLinear<string, string>().domain([40, 80]).range(["#fdba74", "#c2410c"]),
-};
+  return { cityNameMap, cityNameToPlate, candidates, nameMapping, scales, labels, colors, dataUrl: "/fuck/data/election2023.json", svgUrl: "/fuck/turkey-map.svg" };
+}
 
-// --- Aggregator: compute city (province) totals from district data ---
-function computeCityData(districtData: any) {
+// --- US config ---
+function getUSConfig() {
+  // For US, we don't need province mapping (cityNameMap is empty)
+  const cityNameMap: Record<string, string> = {};
+  const cityNameToPlate: Record<string, string> = {};
+
+  const candidates = ["sanders", "lbj", "bryant", "morse"];
+  const nameMapping: Record<string, string> = {
+    sanders: "Bernie Sanders",
+    lbj: "Lyndon B. Johnson",
+    bryant: "Farris Bryant",
+    morse: "Wayne Morse",
+  };
+  const scales = {
+    sanders: d3.scaleLinear<string, string>().domain([40, 80]).range(["#ff0000", "#990000"]),
+    lbj: d3.scaleLinear<string, string>().domain([40, 80]).range(["#3b82f6", "#1e3a8a"]),
+    bryant: d3.scaleLinear<string, string>().domain([40, 80]).range(["#facc15", "#b45309"]),
+    morse: d3.scaleLinear<string, string>().domain([40, 80]).range(["#22c55e", "#15803d"]),
+  };
+  const labels: Record<string, string> = {
+    sanders: "Sanders",
+    lbj: "LBJ",
+    bryant: "Bryant",
+    morse: "Morse",
+  };
+  const colors: Record<string, string> = {
+    sanders: "#ff0000",
+    lbj: "#3b82f6",
+    bryant: "#facc15",
+    morse: "#22c55e",
+  };
+
+  return { cityNameMap, cityNameToPlate, candidates, nameMapping, scales, labels, colors, dataUrl: "/fuck/data/us1968.json", svgUrl: "/fuck/us-map.svg" };
+}
+
+// ============================================================
+// COMPUTE CITY DATA (province aggregation) – Turkey only
+// ============================================================
+function computeCityData(districtData: any, candidates: string[]) {
   const cityTotals: Record<string, any> = {};
-  const candidates = ALL_CANDIDATES;
 
   for (const [key, district] of Object.entries(districtData)) {
     const plate = key.split('-')[0];
@@ -200,10 +254,15 @@ function computeCityData(districtData: any) {
   return cityTotals;
 }
 
-// --- Scaling function ---
+// ============================================================
+// SCALING FUNCTION (generic)
+// ============================================================
 function applyProvinceResults(
   electionData: any,
-  gameResults: Record<string, Record<string, number>>
+  gameResults: Record<string, Record<string, number>>,
+  candidates: string[],
+  nameMapping: Record<string, string>,
+  cityNameToPlate: Record<string, string>
 ) {
   const adjustedData = JSON.parse(JSON.stringify(electionData));
 
@@ -215,56 +274,51 @@ function applyProvinceResults(
       return;
     }
 
-    // Normalize gameVotes keys so we can match regardless of spacing/diacritics
     const normalizedGameVotes: Record<string, number> = {};
     for (const [gameName, votes] of Object.entries(gameVotes)) {
       normalizedGameVotes[normalizeName(gameName)] = votes;
     }
 
-    // Sum base totals for this province
     const baseTotals: Record<string, number> = {};
-    ALL_CANDIDATES.forEach((c) => { baseTotals[c] = 0; });
+    candidates.forEach((c) => { baseTotals[c] = 0; });
     Object.entries(electionData).forEach(([key, d]: [string, any]) => {
       if (key.startsWith(plate + "-")) {
-        ALL_CANDIDATES.forEach((c) => {
+        candidates.forEach((c) => {
           baseTotals[c] += parseInt(d[c].votes.replace(/\./g, "")) || 0;
         });
       }
     });
 
-    // Compute scaling factors using normalized lookup
     const factors: Record<string, number> = {};
-    ALL_CANDIDATES.forEach((c) => {
-      const expectedName = MAP_KEY_TO_GAME_NAME[c];
+    candidates.forEach((c) => {
+      const expectedName = nameMapping[c];
       const normalizedExpected = normalizeName(expectedName);
       const gameVote = normalizedGameVotes[normalizedExpected] ?? 0;
       const baseVote = baseTotals[c];
       factors[c] = baseVote > 0 ? gameVote / baseVote : 0;
     });
 
-    // Apply to each district
     Object.keys(adjustedData).forEach((key) => {
       if (!key.startsWith(plate + "-")) return;
       const d = adjustedData[key];
-      ALL_CANDIDATES.forEach((c) => {
+      candidates.forEach((c) => {
         const baseVotes = parseInt(d[c].votes.replace(/\./g, "")) || 0;
         const scaled = Math.round(baseVotes * factors[c]);
         d[c].votes = scaled.toLocaleString("tr-TR");
       });
 
-      // Recalculate percentages and winner (normalize to 100%)
-      const total = ALL_CANDIDATES.reduce(
+      const total = candidates.reduce(
         (sum, c) => sum + parseInt(d[c].votes.replace(/\./g, "")) || 0,
         0
       );
       if (total > 0) {
-        ALL_CANDIDATES.forEach((c) => {
+        candidates.forEach((c) => {
           const v = parseInt(d[c].votes.replace(/\./g, "")) || 0;
           d[c].pct = ((v / total) * 100).toFixed(2);
         });
-        let winner = ALL_CANDIDATES[0];
+        let winner = candidates[0];
         let maxPct = parseFloat(d[winner].pct);
-        ALL_CANDIDATES.forEach((c) => {
+        candidates.forEach((c) => {
           if (parseFloat(d[c].pct) > maxPct) {
             winner = c;
             maxPct = parseFloat(d[c].pct);
@@ -278,12 +332,17 @@ function applyProvinceResults(
   return adjustedData;
 }
 
-// --- D3 render function ---
+// ============================================================
+// D3 RENDER FUNCTION (generic)
+// ============================================================
 function renderMap(
   container: HTMLDivElement,
   data: any,
   onHover: (name: string, districtData: any) => void,
-  mode: "district" | "city"
+  mode: "district" | "city",
+  svgUrl: string,
+  scales: any,
+  cityNameMap: Record<string, string>
 ) {
   d3.select(container).selectAll("*").remove();
 
@@ -305,7 +364,7 @@ function renderMap(
 
   (svg as any).call(zoom);
 
-  d3.xml("/fuck/turkey-map.svg")
+  d3.xml(svgUrl)
     .then((response) => {
       const importedSvg = response.documentElement;
       while (importedSvg.children.length > 0) {
@@ -378,8 +437,10 @@ function renderMap(
     });
 }
 
-// --- DetailedMapView component ---
-function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel }) {
+// ============================================================
+// DETAILED MAP VIEW COMPONENT
+// ============================================================
+function DetailedMapView({ engine, theme, mapType = "turkey" }: { engine: Engine; theme: ThemeModel; mapType?: "turkey" | "us" }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -391,24 +452,25 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     data: any;
   } | null>(null);
 
+  // Load the correct config for this map type
+  const config = mapType === "turkey" ? getTurkeyConfig() : getUSConfig();
+  const { cityNameMap, cityNameToPlate, candidates, nameMapping, scales, labels, colors, dataUrl, svgUrl } = config;
+
   useEffect(() => {
     async function loadAndRender() {
       try {
-        const response = await fetch("/fuck/data/election2023.json");
+        const response = await fetch(dataUrl);
         if (!response.ok) throw new Error("Failed to load district data");
         const electionData = await response.json();
 
         const gameResults: Record<string, Record<string, number>> = {};
         const stateControllers = engine.scenarioController.stateControllers;
-        const candidates = engine.scenarioController.getCandidates();
-
-        // Debug: log candidate names from the game
-        console.log("Game candidate names:", candidates.map(c => c.model.firstName + " " + c.model.lastName));
+        const gameCandidates = engine.scenarioController.getCandidates();
 
         stateControllers.forEach((state) => {
           const stateName = state.model.name;
           const votes: Record<string, number> = {};
-          candidates.forEach((candidate) => {
+          gameCandidates.forEach((candidate) => {
             const fullName =
               candidate.model.firstName + " " + candidate.model.lastName;
             votes[fullName] = state.getPvsForCandidate(candidate);
@@ -416,8 +478,14 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
           gameResults[stateName] = votes;
         });
 
-        const adjusted = applyProvinceResults(electionData, gameResults);
-        const cityAgg = computeCityData(adjusted);
+        // Apply scaling using the correct config
+        const adjusted = applyProvinceResults(electionData, gameResults, candidates, nameMapping, cityNameToPlate);
+
+        // For Turkey, compute city aggregation; for US, skip (or use empty)
+        let cityAgg = null;
+        if (mapType === "turkey") {
+          cityAgg = computeCityData(adjusted, candidates);
+        }
         setAdjustedData(adjusted);
         setCityData(cityAgg);
         setLoading(false);
@@ -429,8 +497,9 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
     }
 
     loadAndRender();
-  }, [engine]);
+  }, [engine, dataUrl, cityNameToPlate, candidates, nameMapping, mapType]);
 
+  // Render the map when data or mode changes
   useEffect(() => {
     if (!loading && !error && adjustedData && containerRef.current) {
       requestAnimationFrame(() => {
@@ -443,33 +512,16 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
               (name, data) => {
                 setHoveredDistrict(data ? { name, data } : null);
               },
-              mode
+              mode,
+              svgUrl,
+              scales,
+              cityNameMap
             );
           }
         }
       });
     }
-  }, [loading, error, adjustedData, cityData, mode]);
-
-  const candidateColors: Record<string, string> = {
-    rte: "#eab308",
-    kk: "#ef4444",
-    so: "#3b82f6",
-    mi: "#22c55e",
-    my: "#ef4444",
-    sd: "#8b5cf6",
-    fe: "#ea580c",
-  };
-
-  const candidateLabels: Record<string, string> = {
-    rte: "RTE",
-    kk: "KK",
-    so: "S. Oğan",
-    mi: "M. İnce",
-    my: "M. Yavaş",
-    sd: "S. Demirtaş",
-    fe: "F. Erbakan",
-  };
+  }, [loading, error, adjustedData, cityData, mode, svgUrl, scales, cityNameMap]);
 
   return (
     <div style={{ display: "flex", height: "80vh", gap: "0", background: "#e9ecf2" }}>
@@ -508,40 +560,42 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
           📍 {mode === "district" ? "İlçe" : "İl"} Info
         </h2>
 
-        <div style={{ display: "flex", background: "#e2e8f0", borderRadius: "8px", padding: "4px", marginBottom: "15px" }}>
-          <button
-            style={{
-              flex: 1,
-              padding: "8px 10px",
-              border: "none",
-              borderRadius: "6px",
-              background: mode === "district" ? "white" : "transparent",
-              fontWeight: 600,
-              cursor: "pointer",
-              color: mode === "district" ? "#0f172a" : "#64748b",
-              boxShadow: mode === "district" ? "0 1px 3px rgba(0,0,0,0.12)" : "none"
-            }}
-            onClick={() => setMode("district")}
-          >
-            İlçe Modu
-          </button>
-          <button
-            style={{
-              flex: 1,
-              padding: "8px 10px",
-              border: "none",
-              borderRadius: "6px",
-              background: mode === "city" ? "white" : "transparent",
-              fontWeight: 600,
-              cursor: "pointer",
-              color: mode === "city" ? "#0f172a" : "#64748b",
-              boxShadow: mode === "city" ? "0 1px 3px rgba(0,0,0,0.12)" : "none"
-            }}
-            onClick={() => setMode("city")}
-          >
-            İl Modu
-          </button>
-        </div>
+        {mapType === "turkey" && (
+          <div style={{ display: "flex", background: "#e2e8f0", borderRadius: "8px", padding: "4px", marginBottom: "15px" }}>
+            <button
+              style={{
+                flex: 1,
+                padding: "8px 10px",
+                border: "none",
+                borderRadius: "6px",
+                background: mode === "district" ? "white" : "transparent",
+                fontWeight: 600,
+                cursor: "pointer",
+                color: mode === "district" ? "#0f172a" : "#64748b",
+                boxShadow: mode === "district" ? "0 1px 3px rgba(0,0,0,0.12)" : "none"
+              }}
+              onClick={() => setMode("district")}
+            >
+              İlçe Modu
+            </button>
+            <button
+              style={{
+                flex: 1,
+                padding: "8px 10px",
+                border: "none",
+                borderRadius: "6px",
+                background: mode === "city" ? "white" : "transparent",
+                fontWeight: 600,
+                cursor: "pointer",
+                color: mode === "city" ? "#0f172a" : "#64748b",
+                boxShadow: mode === "city" ? "0 1px 3px rgba(0,0,0,0.12)" : "none"
+              }}
+              onClick={() => setMode("city")}
+            >
+              İl Modu
+            </button>
+          </div>
+        )}
 
         {hoveredDistrict ? (
           <>
@@ -549,7 +603,7 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
               {hoveredDistrict.name}
             </div>
             <div style={{ marginTop: "15px", fontSize: "1rem", color: "#334155", lineHeight: "1.8" }}>
-              {ALL_CANDIDATES.map((key) => {
+              {candidates.map((key) => {
                 const data = hoveredDistrict.data[key];
                 if (!data) return null;
                 const isWinner = hoveredDistrict.data.winner === key;
@@ -575,11 +629,11 @@ function DetailedMapView({ engine, theme }: { engine: Engine; theme: ThemeModel 
                           width: "10px",
                           height: "10px",
                           borderRadius: "50%",
-                          background: candidateColors[key],
+                          background: colors[key],
                           marginRight: "6px",
                         }}
                       />
-                      <strong>{candidateLabels[key]}</strong>
+                      <strong>{labels[key]}</strong>
                     </span>
                     <span>
                       %{data.pct} ({data.votes} Oy)
@@ -669,11 +723,19 @@ function EndingView(props: EndingViewProps) {
     } else if (currentTab == EndingTab.FurtherReading) {
       return <FurtherReading engine={engine} theme={theme} />;
     } else if (currentTab == EndingTab.DetailedMap) {
-      return <DetailedMapView engine={engine} theme={theme} />;
+      const scenarioName = engine.scenarioController?.model?.scenarioName || "";
+      let mapType: "turkey" | "us" = "turkey";
+      if (scenarioName === "1964 Colonel") {
+        mapType = "us";
+      }
+      return <DetailedMapView engine={engine} theme={theme} mapType={mapType} />;
     }
   }
 
   const scenarioName = engine.scenarioController?.model?.scenarioName || "";
+
+  // Show the Detailed Map button for scenarios that have a map
+  const showDetailedMap = scenarioName === "The Goat" || scenarioName === "Turkish2023" || scenarioName === "1964 Colonel";
 
   return (
     <div className="EndingView">
@@ -709,8 +771,7 @@ function EndingView(props: EndingViewProps) {
         >
           {engine.getLocalization("Overall Results Detailed")}
         </button>
-        {/* Only show Detailed Map for The Goat or Turkish2023 */}
-        {(scenarioName === "The Goat" || scenarioName === "Turkish2023") && (
+        {showDetailedMap && (
           <button
             disabled={currentTab == EndingTab.DetailedMap}
             onClick={() => setCurrentTab(EndingTab.DetailedMap)}

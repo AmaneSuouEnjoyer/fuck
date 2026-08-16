@@ -1,0 +1,40 @@
+{
+  "KS_Morris": {
+    "sanders": {
+      "pct": 5,
+      "votes": "5000"
+    },
+    "lbj": {
+      "pct": 44,
+      "votes": "44000"
+    },
+    "bryant": {
+      "pct": 4,
+      "votes": "4000"
+    },
+    "morse": {
+      "pct": 47,
+      "votes": "47000"
+    },
+    "winner": "morse"
+  },
+  "AL_Houston": {
+    "sanders": {
+      "pct": 15,
+      "votes": "15000"
+    },
+    "lbj": {
+      "pct": 15,
+      "votes": "15000"
+    },
+    "bryant": {
+      "pct": 8,
+      "votes": "8000"
+    },
+    "morse": {
+      "pct": 62,
+      "votes": "62000"
+    },
+    "winner": "morse"
+  }
+}
