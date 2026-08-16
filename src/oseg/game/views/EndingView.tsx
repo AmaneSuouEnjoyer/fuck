@@ -49,86 +49,26 @@ function normalizeName(name: string): string {
 // --- Turkey config ---
 function getTurkeyConfig() {
   const cityNameMap: Record<string, string> = {
-    "01": "ADANA",
-    "02": "ADIYAMAN",
-    "03": "AFYONKARAHİSAR",
-    "04": "AĞRI",
-    "05": "AMASYA",
-    "06": "ANKARA",
-    "07": "ANTALYA",
-    "08": "ARTVİN",
-    "09": "AYDIN",
-    "10": "BALIKESİR",
-    "11": "BİLECİK",
-    "12": "BİNGÖL",
-    "13": "BİTLİS",
-    "14": "BOLU",
-    "15": "BURDUR",
-    "16": "BURSA",
-    "17": "ÇANAKKALE",
-    "18": "ÇANKIRI",
-    "19": "ÇORUM",
-    "20": "DENİZLİ",
-    "21": "DİYARBAKIR",
-    "22": "EDİRNE",
-    "23": "ELAZIĞ",
-    "24": "ERZİNCAN",
-    "25": "ERZURUM",
-    "26": "ESKİŞEHİR",
-    "27": "GAZİANTEP",
-    "28": "GİRESUN",
-    "29": "GÜMÜŞHANE",
-    "30": "HAKKARİ",
-    "31": "HATAY",
-    "32": "ISPARTA",
-    "33": "MERSİN",
-    "34": "İSTANBUL",
-    "35": "İZMİR",
-    "36": "KARS",
-    "37": "KASTAMONU",
-    "38": "KAYSERİ",
-    "39": "KIRKLARELİ",
-    "40": "KIRŞEHİR",
-    "41": "KOCAELİ",
-    "42": "KONYA",
-    "43": "KÜTAHYA",
-    "44": "MALATYA",
-    "45": "MANİSA",
-    "46": "KAHRAMANMARAŞ",
-    "47": "MARDİN",
-    "48": "MUĞLA",
-    "49": "MUŞ",
-    "50": "NEVŞEHİR",
-    "51": "NİĞDE",
-    "52": "ORDU",
-    "53": "RİZE",
-    "54": "SAKARYA",
-    "55": "SAMSUN",
-    "56": "SİİRT",
-    "57": "SİNOP",
-    "58": "SİVAS",
-    "59": "TEKİRDAĞ",
-    "60": "TOKAT",
-    "61": "TRABZON",
-    "62": "TUNCELİ",
-    "63": "ŞANLIURFA",
-    "64": "UŞAK",
-    "65": "VAN",
-    "66": "YOZGAT",
-    "67": "ZONGULDAK",
-    "68": "AKSARAY",
-    "69": "BAYBURT",
-    "70": "KARAMAN",
-    "71": "KIRIKKALE",
-    "72": "BATMAN",
-    "73": "ŞIRNAK",
-    "74": "BARTIN",
-    "75": "ARDAHAN",
-    "76": "IĞDIR",
-    "77": "YALOVA",
-    "78": "KARABÜK",
-    "79": "KİLİS",
-    "80": "OSMANİYE",
+    "01": "ADANA", "02": "ADIYAMAN", "03": "AFYONKARAHİSAR", "04": "AĞRI",
+    "05": "AMASYA", "06": "ANKARA", "07": "ANTALYA", "08": "ARTVİN",
+    "09": "AYDIN", "10": "BALIKESİR", "11": "BİLECİK", "12": "BİNGÖL",
+    "13": "BİTLİS", "14": "BOLU", "15": "BURDUR", "16": "BURSA",
+    "17": "ÇANAKKALE", "18": "ÇANKIRI", "19": "ÇORUM", "20": "DENİZLİ",
+    "21": "DİYARBAKIR", "22": "EDİRNE", "23": "ELAZIĞ", "24": "ERZİNCAN",
+    "25": "ERZURUM", "26": "ESKİŞEHİR", "27": "GAZİANTEP", "28": "GİRESUN",
+    "29": "GÜMÜŞHANE", "30": "HAKKARİ", "31": "HATAY", "32": "ISPARTA",
+    "33": "MERSİN", "34": "İSTANBUL", "35": "İZMİR", "36": "KARS",
+    "37": "KASTAMONU", "38": "KAYSERİ", "39": "KIRKLARELİ", "40": "KIRŞEHİR",
+    "41": "KOCAELİ", "42": "KONYA", "43": "KÜTAHYA", "44": "MALATYA",
+    "45": "MANİSA", "46": "KAHRAMANMARAŞ", "47": "MARDİN", "48": "MUĞLA",
+    "49": "MUŞ", "50": "NEVŞEHİR", "51": "NİĞDE", "52": "ORDU",
+    "53": "RİZE", "54": "SAKARYA", "55": "SAMSUN", "56": "SİİRT",
+    "57": "SİNOP", "58": "SİVAS", "59": "TEKİRDAĞ", "60": "TOKAT",
+    "61": "TRABZON", "62": "TUNCELİ", "63": "ŞANLIURFA", "64": "UŞAK",
+    "65": "VAN", "66": "YOZGAT", "67": "ZONGULDAK", "68": "AKSARAY",
+    "69": "BAYBURT", "70": "KARAMAN", "71": "KIRIKKALE", "72": "BATMAN",
+    "73": "ŞIRNAK", "74": "BARTIN", "75": "ARDAHAN", "76": "IĞDIR",
+    "77": "YALOVA", "78": "KARABÜK", "79": "KİLİS", "80": "OSMANİYE",
     "81": "DÜZCE",
   };
 
@@ -175,12 +115,23 @@ function getTurkeyConfig() {
     fe: "#ea580c",
   };
 
-  return { cityNameMap, cityNameToPlate, candidates, nameMapping, scales, labels, colors, dataUrl: "/fuck/data/election2023.json", svgUrl: "/fuck/turkey-map.svg" };
+  return {
+    cityNameMap,
+    cityNameToPlate,
+    candidates,
+    nameMapping,
+    scales,
+    labels,
+    colors,
+    dataUrl: "/fuck/data/election2023.json",
+    svgUrl: "/fuck/turkey-map.svg",
+    hasCityMode: true,
+  };
 }
 
 // --- US config ---
 function getUSConfig() {
-  // For US, we don't need province mapping (cityNameMap is empty)
+  // For US, we don't need province mapping
   const cityNameMap: Record<string, string> = {};
   const cityNameToPlate: Record<string, string> = {};
 
@@ -210,7 +161,18 @@ function getUSConfig() {
     morse: "#22c55e",
   };
 
-  return { cityNameMap, cityNameToPlate, candidates, nameMapping, scales, labels, colors, dataUrl: "/fuck/data/us1968.json", svgUrl: "/fuck/us-map.svg" };
+  return {
+    cityNameMap,
+    cityNameToPlate,
+    candidates,
+    nameMapping,
+    scales,
+    labels,
+    colors,
+    dataUrl: "/fuck/data/us1968.json",
+    svgUrl: "/fuck/us-map.svg",
+    hasCityMode: false,
+  };
 }
 
 // ============================================================
@@ -440,7 +402,15 @@ function renderMap(
 // ============================================================
 // DETAILED MAP VIEW COMPONENT
 // ============================================================
-function DetailedMapView({ engine, theme, mapType = "turkey" }: { engine: Engine; theme: ThemeModel; mapType?: "turkey" | "us" }) {
+function DetailedMapView({
+  engine,
+  theme,
+  mapType = "turkey",
+}: {
+  engine: Engine;
+  theme: ThemeModel;
+  mapType?: "turkey" | "us";
+}) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -454,7 +424,18 @@ function DetailedMapView({ engine, theme, mapType = "turkey" }: { engine: Engine
 
   // Load the correct config for this map type
   const config = mapType === "turkey" ? getTurkeyConfig() : getUSConfig();
-  const { cityNameMap, cityNameToPlate, candidates, nameMapping, scales, labels, colors, dataUrl, svgUrl } = config;
+  const {
+    cityNameMap,
+    cityNameToPlate,
+    candidates,
+    nameMapping,
+    scales,
+    labels,
+    colors,
+    dataUrl,
+    svgUrl,
+    hasCityMode,
+  } = config;
 
   useEffect(() => {
     async function loadAndRender() {
@@ -479,9 +460,15 @@ function DetailedMapView({ engine, theme, mapType = "turkey" }: { engine: Engine
         });
 
         // Apply scaling using the correct config
-        const adjusted = applyProvinceResults(electionData, gameResults, candidates, nameMapping, cityNameToPlate);
+        const adjusted = applyProvinceResults(
+          electionData,
+          gameResults,
+          candidates,
+          nameMapping,
+          cityNameToPlate
+        );
 
-        // For Turkey, compute city aggregation; for US, skip (or use empty)
+        // Compute city aggregation only for Turkey
         let cityAgg = null;
         if (mapType === "turkey") {
           cityAgg = computeCityData(adjusted, candidates);
@@ -556,12 +543,29 @@ function DetailedMapView({ engine, theme, mapType = "turkey" }: { engine: Engine
           overflowY: "auto",
         }}
       >
-        <h2 style={{ fontSize: "1.2rem", fontWeight: 600, color: "#1e293b", borderBottom: "2px solid #3b82f6", paddingBottom: "8px", marginBottom: "15px" }}>
-          📍 {mode === "district" ? "İlçe" : "İl"} Info
+        <h2
+          style={{
+            fontSize: "1.2rem",
+            fontWeight: 600,
+            color: "#1e293b",
+            borderBottom: "2px solid #3b82f6",
+            paddingBottom: "8px",
+            marginBottom: "15px",
+          }}
+        >
+          📍 {mode === "district" ? "District" : "State"} Info
         </h2>
 
-        {mapType === "turkey" && (
-          <div style={{ display: "flex", background: "#e2e8f0", borderRadius: "8px", padding: "4px", marginBottom: "15px" }}>
+        {hasCityMode && (
+          <div
+            style={{
+              display: "flex",
+              background: "#e2e8f0",
+              borderRadius: "8px",
+              padding: "4px",
+              marginBottom: "15px",
+            }}
+          >
             <button
               style={{
                 flex: 1,
@@ -572,11 +576,11 @@ function DetailedMapView({ engine, theme, mapType = "turkey" }: { engine: Engine
                 fontWeight: 600,
                 cursor: "pointer",
                 color: mode === "district" ? "#0f172a" : "#64748b",
-                boxShadow: mode === "district" ? "0 1px 3px rgba(0,0,0,0.12)" : "none"
+                boxShadow: mode === "district" ? "0 1px 3px rgba(0,0,0,0.12)" : "none",
               }}
               onClick={() => setMode("district")}
             >
-              İlçe Modu
+              District Mode
             </button>
             <button
               style={{
@@ -588,21 +592,36 @@ function DetailedMapView({ engine, theme, mapType = "turkey" }: { engine: Engine
                 fontWeight: 600,
                 cursor: "pointer",
                 color: mode === "city" ? "#0f172a" : "#64748b",
-                boxShadow: mode === "city" ? "0 1px 3px rgba(0,0,0,0.12)" : "none"
+                boxShadow: mode === "city" ? "0 1px 3px rgba(0,0,0,0.12)" : "none",
               }}
               onClick={() => setMode("city")}
             >
-              İl Modu
+              State Mode
             </button>
           </div>
         )}
 
         {hoveredDistrict ? (
           <>
-            <div style={{ fontSize: "2rem", fontWeight: 700, color: "#0f172a", wordBreak: "break-word", textTransform: "capitalize" }}>
+            <div
+              style={{
+                fontSize: "2rem",
+                fontWeight: 700,
+                color: "#0f172a",
+                wordBreak: "break-word",
+                textTransform: "capitalize",
+              }}
+            >
               {hoveredDistrict.name}
             </div>
-            <div style={{ marginTop: "15px", fontSize: "1rem", color: "#334155", lineHeight: "1.8" }}>
+            <div
+              style={{
+                marginTop: "15px",
+                fontSize: "1rem",
+                color: "#334155",
+                lineHeight: "1.8",
+              }}
+            >
               {candidates.map((key) => {
                 const data = hoveredDistrict.data[key];
                 if (!data) return null;
@@ -636,7 +655,7 @@ function DetailedMapView({ engine, theme, mapType = "turkey" }: { engine: Engine
                       <strong>{labels[key]}</strong>
                     </span>
                     <span>
-                      %{data.pct} ({data.votes} Oy)
+                      %{data.pct} ({data.votes} Votes)
                     </span>
                   </div>
                 );
@@ -645,11 +664,19 @@ function DetailedMapView({ engine, theme, mapType = "turkey" }: { engine: Engine
           </>
         ) : (
           <div style={{ color: "#94a3b8", fontSize: "1.2rem", marginTop: "20px" }}>
-            {mode === "district" ? "Hover over a district" : "Hover over a province"}
+            {mode === "district" ? "Hover over a district" : "Hover over a state"}
           </div>
         )}
 
-        <div style={{ marginTop: "auto", paddingTop: "20px", borderTop: "1px solid #e2e8f0", color: "#64748b", fontSize: "0.85rem" }}>
+        <div
+          style={{
+            marginTop: "auto",
+            paddingTop: "20px",
+            borderTop: "1px solid #e2e8f0",
+            color: "#64748b",
+            fontSize: "0.85rem",
+          }}
+        >
           <p>🖱️ Scroll to zoom · Drag to pan</p>
         </div>
       </div>
@@ -735,7 +762,10 @@ function EndingView(props: EndingViewProps) {
   const scenarioName = engine.scenarioController?.model?.scenarioName || "";
 
   // Show the Detailed Map button for scenarios that have a map
-  const showDetailedMap = scenarioName === "The Goat" || scenarioName === "Turkish2023" || scenarioName === "1964 Colonel";
+  const showDetailedMap =
+    scenarioName === "The Goat" ||
+    scenarioName === "Turkish2023" ||
+    scenarioName === "1964 Colonel";
 
   return (
     <div className="EndingView">
